@@ -2,7 +2,7 @@ from werkzeug.security import generate_password_hash
 from modules.database import get_db_connection, close_db_connection
 
 def hash_password(password):
-    return generate_password_hash(password)
+    return generate_password_hash(password, method="pbkdf2:sha256")
 
 def register_user(full_name, email, password, college_name):
     connection = get_db_connection()

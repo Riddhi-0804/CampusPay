@@ -1,30 +1,22 @@
 import pymysql
 from pymysql.cursors import DictCursor
-
-DB_HOST = "localhost"
-DB_PORT = 3306
-DB_USER = "root"
-DB_PASSWORD = "YOUR_MYSQL_PASSWORD"
-DB_NAME = "campuspay"
-
+from config import Config
 
 def get_db_connection():
     connection = pymysql.connect(
-        host=DB_HOST,
-        port=DB_PORT,
-        user=DB_USER,
-        password=DB_PASSWORD,
-        database=DB_NAME,
+        host=Config.DB_HOST,
+        port=Config.DB_PORT,
+        user=Config.DB_USER,
+        password=Config.DB_PASSWORD,
+        database=Config.DB_NAME,
         cursorclass=DictCursor,
         autocommit=False
     )
     return connection
 
-
 def close_db_connection(connection):
     if connection and connection.open:
         connection.close()
-
 
 def execute_query(query, params=None):
     connection = None
@@ -47,7 +39,6 @@ def execute_query(query, params=None):
     finally:
         close_db_connection(connection)
 
-
 def execute_write(query, params=None):
     connection = None
 
@@ -68,7 +59,6 @@ def execute_write(query, params=None):
 
     finally:
         close_db_connection(connection)
-
 
 def execute_update(query, params=None):
     connection = None
