@@ -14,8 +14,18 @@ def create_group(name, created_by):
                 (name, created_by)
             )
 
+            group_id = cursor.lastrowid
+
+            cursor.execute(
+                """
+                INSERT INTO group_members (group_id, user_id)
+                VALUES (%s, %s)
+                """,
+                (group_id, created_by)
+            )
+
             connection.commit()
-            return cursor.lastrowid
+            return group_id
 
     except Exception:
         connection.rollback()
@@ -107,6 +117,33 @@ def get_group_members(group_id):
                 ORDER BY u.full_name
                 """,
                 (group_id,)
+            )
+
+            return cursor.fetchall()
+
+    finally:
+        close_db_connection(connection)
+
+
+def get_user_groups(user_id):
+    connection = get_db_connection()
+
+    try:
+        with connection.cursor() as cursor:
+            cursor.execute(
+                """
+                SELECT
+                    g.id,
+                    g.name,
+                    g.created_by,
+                    g.created_at
+                FROM groups g
+                INNER JOIN group_members gm
+                    ON g.id = gm.group_id
+                WHERE gm.user_id = %s
+                ORDER BY g.created_at DESC, g.id DESC
+                """,
+                (user_id,)
             )
 
             return cursor.fetchall()

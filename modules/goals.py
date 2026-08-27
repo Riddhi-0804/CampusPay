@@ -160,3 +160,26 @@ def estimate_completion_months(target_amount, current_amount, monthly_contributi
     months = remaining_amount / monthly_contribution
 
     return int(months) if months.is_integer() else int(months) + 1
+
+def delete_goal(goal_id, user_id):
+    connection = get_db_connection()
+
+    try:
+        with connection.cursor() as cursor:
+            cursor.execute(
+                """
+                DELETE FROM savings_goals
+                WHERE id = %s AND user_id = %s
+                """,
+                (goal_id, user_id)
+            )
+
+            connection.commit()
+            return cursor.rowcount > 0
+
+    except Exception:
+        connection.rollback()
+        raise
+
+    finally:
+        close_db_connection(connection)
