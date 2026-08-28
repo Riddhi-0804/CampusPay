@@ -13,18 +13,13 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    <link
-        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
-        rel="stylesheet"
-    >
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
 
     <!-- =====================================================
          FONT AWESOME
          ===================================================== -->
-    <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
-    >
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 
     <!-- =====================================================
          CAMPUSPAY CSS
@@ -87,7 +82,7 @@
                         </li>
 
                         <li>
-                            <a href="#" class="nav-link">
+                            <a href="expenses.html" class="nav-link">
                                 <i class="fa-solid fa-receipt"></i>
                                 <span>Expenses</span>
                             </a>
@@ -581,19 +576,8 @@
 
                             <div class="spending-chart">
 
-                                <div class="chart-placeholder">
-
-                                    <div class="chart-line"></div>
-
-                                    <div class="chart-labels">
-
-                                        <span>Week 1</span>
-                                        <span>Week 2</span>
-                                        <span>Week 3</span>
-                                        <span>Week 4</span>
-
-                                    </div>
-
+                                <div class="chart-container">
+                                    <canvas id="spendingChart"></canvas>
                                 </div>
 
 
@@ -1054,10 +1038,7 @@
 
                                     <div class="progress-bar">
 
-                                        <div
-                                            class="progress-fill progress-purple"
-                                            style="width: 42%;"
-                                        ></div>
+                                        <div class="progress-fill progress-purple" style="width: 42%;"></div>
 
                                     </div>
 
@@ -1113,10 +1094,7 @@
 
                                     <div class="progress-bar">
 
-                                        <div
-                                            class="progress-fill progress-mint"
-                                            style="width: 68%;"
-                                        ></div>
+                                        <div class="progress-fill progress-mint" style="width: 68%;"></div>
 
                                     </div>
 
@@ -1213,6 +1191,7 @@
          JAVASCRIPT
          ===================================================== -->
 
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="../static/js/app.js"></script>
 
 </body>

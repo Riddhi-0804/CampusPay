@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CampusPay — SmartSplit</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="stylesheet" href="../static/css/style.css">
+    <link rel="stylesheet" href="../static/css/app.css">
+    <link rel="stylesheet" href="../static/css/smartsplit.css">
+</head>
+
+<body>
+<div class="app">
+
+    <aside class="sidebar">
+        <div class="sidebar-brand">
+            <div class="brand-mark"><i class="fa-solid fa-wallet"></i></div>
+            <div class="brand-text">
+                <span class="brand-name">CampusPay</span>
+                <span class="brand-tagline">Manage. Split. Save.</span>
+            </div>
+        </div>
+
+        <nav>
+            <div class="nav-section">
+                <div class="nav-section-title">Manage</div>
+                <ul class="nav-list">
+                    <li><a href="#" class="nav-link"><i class="fa-solid fa-grid-2"></i><span>Dashboard</span></a></li>
+                    <li><a href="#" class="nav-link"><i class="fa-solid fa-receipt"></i><span>Expenses</span></a></li>
+                </ul>
+            </div>
+
+            <div class="nav-section">
+                <div class="nav-section-title">Split</div>
+                <ul class="nav-list">
+                    <li>
+                        <a href="#" class="nav-link active">
+                            <i class="fa-solid fa-users"></i>
+                            <span>SmartSplit</span>
+                            <span class="nav-badge mint">Smart</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="nav-section">
+                <div class="nav-section-title">Save</div>
+                <ul class="nav-list">
+                    <li><a href="#" class="nav-link"><i class="fa-solid fa-bullseye"></i><span>Goals</span></a></li>
+                    <li><a href="#" class="nav-link"><i class="fa-solid fa-wand-magic-sparkles"></i><span>AI Finance</span><span class="nav-badge pink">AI</span></a></li>
+                    <li><a href="#" class="nav-link"><i class="fa-solid fa-tag"></i><span>Student Deals</span></a></li>
+                    <li><a href="#" class="nav-link"><i class="fa-solid fa-chart-simple"></i><span>Analytics</span></a></li>
+                </ul>
+            </div>
+        </nav>
+
+        <div class="sidebar-user">
+            <div class="user-card">
+                <div class="user-avatar">DP</div>
+                <div class="user-info">
+                    <span class="user-name">Student</span>
+                    <span class="user-role">CampusPay account</span>
+                </div>
+                <div class="user-settings"><i class="fa-solid fa-gear"></i></div>
+            </div>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <header class="topbar">
+            <div class="topbar-left">
+                <span class="page-heading">SmartSplit</span>
+                <span class="page-heading-divider"></span>
+                <span class="page-status"><span class="status-dot"></span>Split expenses easily</span>
+            </div>
+
+            <div class="topbar-actions">
+                <button class="ai-quick-action">
+                    <i class="fa-solid fa-wand-magic-sparkles"></i>
+                    <span>Ask AI anything...</span>
+                    <kbd>⌘ K</kbd>
+                </button>
+                <button class="topbar-icon"><i class="fa-regular fa-bell"></i></button>
+                <button class="topbar-icon"><i class="fa-solid fa-user"></i></button>
+                <button class="btn btn-primary" id="openCreateGroup">
+                    <i class="fa-solid fa-plus"></i> New Split
+                </button>
+            </div>
+        </header>
+
+        <section class="page-content smartsplit-page">
+
+            <div class="page-header">
+                <div class="page-header-text">
+                    <h1 class="page-title">SmartSplit 👥</h1>
+                    <p class="page-description">Split shared expenses and keep track of who owes whom.</p>
+                </div>
+            </div>
+
+            <div class="split-summary-grid">
+                <div class="split-summary-card summary-purple">
+                    <div class="summary-icon"><i class="fa-solid fa-arrow-up"></i></div>
+                    <div>
+                        <span>You receive</span>
+                        <strong id="receiveTotal">₹0</strong>
+                        <small>from friends</small>
+                    </div>
+                </div>
+
+                <div class="split-summary-card summary-peach">
+                    <div class="summary-icon"><i class="fa-solid fa-arrow-down"></i></div>
+                    <div>
+                        <span>You owe</span>
+                        <strong id="oweTotal">₹0</strong>
+                        <small>to friends</small>
+                    </div>
+                </div>
+
+                <div class="split-summary-card summary-mint">
+                    <div class="summary-icon"><i class="fa-solid fa-users"></i></div>
+                    <div>
+                        <span>Active splits</span>
+                        <strong id="activeTotal">0</strong>
+                        <small>shared groups</small>
+                    </div>
+                </div>
+            </div>
+
+            <div class="split-toolbar">
+                <div class="split-search">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="search" id="splitSearch" placeholder="Search splits...">
+                </div>
+
+                <select id="statusFilter" class="split-filter">
+                    <option value="all">All splits</option>
+                    <option value="pending">Pending</option>
+                    <option value="settled">Settled</option>
+                </select>
+
+                <button class="btn btn-primary" id="openCreateGroupMobile">
+                    <i class="fa-solid fa-plus"></i> Create split
+                </button>
+            </div>
+
+            <div class="split-layout">
+
+                <section class="card split-main-panel">
+                    <div class="section-header">
+                        <div>
+                            <h2 class="section-title">Your splits</h2>
+                            <p class="section-subtitle">All your shared expenses in one place</p>
+                        </div>
+                    </div>
+
+                    <div id="splitList" class="smart-split-list"></div>
+
+                    <div id="emptySplits" class="split-empty hidden">
+                        <div class="empty-icon"><i class="fa-solid fa-users"></i></div>
+                        <h3>No splits yet</h3>
+                        <p>Create your first group and start splitting expenses.</p>
+                        <button class="btn btn-primary" id="emptyCreateBtn">Create a split</button>
+                    </div>
+                </section>
+
+                <aside class="card split-side-panel">
+                    <div class="section-header">
+                        <div>
+                            <h2 class="section-title">How it works</h2>
+                            <p class="section-subtitle">Three simple steps</p>
+                        </div>
+                    </div>
+
+                    <div class="how-step">
+                        <div class="step-number">1</div>
+                        <div><strong>Create a split</strong><span>Add your friends or group members.</span></div>
+                    </div>
+                    <div class="how-step">
+                        <div class="step-number">2</div>
+                        <div><strong>Add expenses</strong><span>Choose equal or custom amounts.</span></div>
+                    </div>
+                    <div class="how-step">
+                        <div class="step-number">3</div>
+                        <div><strong>Settle up</strong><span>Mark payments as settled when done.</span></div>
+                    </div>
+
+                    <div class="smart-tip">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i>
+                        <div>
+                            <strong>Smart tip</strong>
+                            <p>CampusPay keeps the calculations for you, so you can focus on the plan—not the maths.</p>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </section>
+    </main>
+
+    <nav class="mobile-nav">
+        <a href="#" class="mobile-nav-link"><i class="fa-solid fa-house"></i><span>Home</span></a>
+        <a href="#" class="mobile-nav-link"><i class="fa-solid fa-receipt"></i><span>Expenses</span></a>
+        <button class="mobile-add" id="mobileCreate"><i class="fa-solid fa-plus"></i></button>
+        <a href="#" class="mobile-nav-link"><i class="fa-solid fa-bullseye"></i><span>Goals</span></a>
+        <a href="#" class="mobile-nav-link active"><i class="fa-solid fa-users"></i><span>Split</span></a>
+    </nav>
+</div>
+
+<!-- CREATE SPLIT MODAL -->
+<div class="modal-backdrop hidden" id="splitModal">
+    <div class="split-modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+        <button class="modal-close" id="closeModal"><i class="fa-solid fa-xmark"></i></button>
+
+        <div class="modal-heading">
+            <div class="modal-icon"><i class="fa-solid fa-users"></i></div>
+            <div>
+                <h2 id="modalTitle">Create a split</h2>
+                <p>Start a shared expense group.</p>
+            </div>
+        </div>
+
+        <form id="splitForm">
+            <label>
+                Split name
+                <input type="text" id="splitName" placeholder="e.g. Jaipur Trip" required>
+            </label>
+
+            <label>
+                Members
+                <input type="text" id="splitMembers" placeholder="e.g. You, Ananya, Riya, Mehak" required>
+                <small>Separate names with commas. Include yourself as "You".</small>
+            </label>
+
+            <label>
+                First expense amount
+                <div class="amount-input">
+                    <span>₹</span>
+                    <input type="number" id="splitAmount" min="0" step="1" placeholder="0" required>
+                </div>
+            </label>
+
+            <label>
+                Expense description
+                <input type="text" id="expenseDescription" placeholder="e.g. Dinner">
+            </label>
+
+            <label>
+                Split method
+                <select id="splitMethod">
+                    <option value="equal">Split equally</option>
+                    <option value="custom">Custom — your share</option>
+                </select>
+            </label>
+
+            <label id="customShareWrap" class="hidden">
+                Your share
+                <div class="amount-input">
+                    <span>₹</span>
+                    <input type="number" id="customShare" min="0" step="1" placeholder="0">
+                </div>
+            </label>
+
+            <button type="submit" class="btn btn-primary modal-submit">
+                <i class="fa-solid fa-plus"></i> Create split
+            </button>
+        </form>
+    </div>
+</div>
+
+<!-- DETAILS MODAL -->
+<div class="modal-backdrop hidden" id="detailsModal">
+    <div class="split-modal details-modal">
+        <button class="modal-close" id="closeDetails"><i class="fa-solid fa-xmark"></i></button>
+        <div id="detailsContent"></div>
+    </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="../static/js/app.js"></script>
+<script src="../static/js/smartsplit.js"></script>
+</body>
+</html>

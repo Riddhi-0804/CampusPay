@@ -950,7 +950,38 @@ def purchase_advice():
             "error": "Amounts must be valid numbers"
         }, 400
 
+# =========================================================
+# AI FINANCE CHAT
+# =========================================================
 
+@app.route("/ai-finance/chat", methods=["POST"])
+def ai_finance_chat():
+
+    # User must be logged in
+    if "user_id" not in session:
+        return jsonify({
+            "error": "Please log in first."
+        }), 401
+
+    data = request.get_json()
+
+    if not data or not data.get("message"):
+        return jsonify({
+            "error": "Message is required."
+        }), 400
+
+    user_message = data["message"].strip()
+
+    # Get the current user's expenses
+    expenses = get_expenses(session["user_id"])
+
+    # For now, use our existing financial logic
+    insight = generate_financial_insight(expenses)
+
+    return jsonify({
+        "message": user_message,
+        "response": insight
+    }), 200
 # =========================================================
 # RUN APP
 # =========================================================

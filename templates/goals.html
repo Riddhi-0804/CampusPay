@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CampusPay — Goals</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="stylesheet" href="../static/css/style.css">
+    <link rel="stylesheet" href="../static/css/app.css">
+    <link rel="stylesheet" href="../static/css/goals.css">
+</head>
+
+<body>
+<div class="app">
+
+    <aside class="sidebar">
+        <div class="sidebar-brand">
+            <div class="brand-mark"><i class="fa-solid fa-wallet"></i></div>
+            <div class="brand-text">
+                <span class="brand-name">CampusPay</span>
+                <span class="brand-tagline">Manage. Split. Save.</span>
+            </div>
+        </div>
+
+        <nav>
+            <div class="nav-section">
+                <div class="nav-section-title">Manage</div>
+                <ul class="nav-list">
+                    <li><a href="dashboard.html" class="nav-link"><i class="fa-solid fa-grid-2"></i><span>Dashboard</span></a></li>
+                    <li><a href="expenses.html" class="nav-link"><i class="fa-solid fa-receipt"></i><span>Expenses</span></a></li>
+                </ul>
+            </div>
+
+            <div class="nav-section">
+                <div class="nav-section-title">Split</div>
+                <ul class="nav-list">
+                    <li>
+                        <a href="smartsplit.html" class="nav-link">
+                            <i class="fa-solid fa-users"></i>
+                            <span>SmartSplit</span>
+                            <span class="nav-badge mint">Smart</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="nav-section">
+                <div class="nav-section-title">Save</div>
+                <ul class="nav-list">
+                    <li><a href="goals.html" class="nav-link active"><i class="fa-solid fa-bullseye"></i><span>Goals</span></a></li>
+                    <li><a href="#" class="nav-link"><i class="fa-solid fa-wand-magic-sparkles"></i><span>AI Finance</span><span class="nav-badge pink">AI</span></a></li>
+                    <li><a href="#" class="nav-link"><i class="fa-solid fa-tag"></i><span>Student Deals</span></a></li>
+                    <li><a href="#" class="nav-link"><i class="fa-solid fa-chart-simple"></i><span>Analytics</span></a></li>
+                </ul>
+            </div>
+        </nav>
+
+        <div class="sidebar-user">
+            <div class="user-card">
+                <div class="user-avatar">DP</div>
+                <div class="user-info">
+                    <span class="user-name">Student</span>
+                    <span class="user-role">CampusPay account</span>
+                </div>
+                <div class="user-settings"><i class="fa-solid fa-gear"></i></div>
+            </div>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <header class="topbar">
+            <div class="topbar-left">
+                <span class="page-heading">Goals</span>
+                <span class="page-heading-divider"></span>
+                <span class="page-status"><span class="status-dot"></span>Saving mode</span>
+            </div>
+
+            <div class="topbar-actions">
+                <button class="ai-quick-action">
+                    <i class="fa-solid fa-wand-magic-sparkles"></i>
+                    <span>Ask AI anything...</span>
+                    <kbd>⌘ K</kbd>
+                </button>
+                <button class="topbar-icon"><i class="fa-regular fa-bell"></i></button>
+                <button class="topbar-icon"><i class="fa-solid fa-user"></i></button>
+                <button class="btn btn-primary" id="topAddGoal">
+                    <i class="fa-solid fa-plus"></i> Add Goal
+                </button>
+            </div>
+        </header>
+
+        <section class="page-content goals-page">
+
+            <div class="page-header goals-header">
+                <div class="page-header-text">
+                    <h1 class="page-title">Your savings goals 🎯</h1>
+                    <p class="page-description">Turn the things you want into small, achievable steps.</p>
+                </div>
+            </div>
+
+            <section class="goals-summary">
+                <div class="goal-summary-card summary-primary">
+                    <div class="summary-icon"><i class="fa-solid fa-piggy-bank"></i></div>
+                    <div>
+                        <span>Total saved</span>
+                        <strong id="totalSaved">₹0</strong>
+                        <small>Across all active goals</small>
+                    </div>
+                </div>
+
+                <div class="goal-summary-card">
+                    <div class="summary-icon mint"><i class="fa-solid fa-bullseye"></i></div>
+                    <div>
+                        <span>Active goals</span>
+                        <strong id="activeGoals">0</strong>
+                        <small>Keep making progress</small>
+                    </div>
+                </div>
+
+                <div class="goal-summary-card">
+                    <div class="summary-icon pink"><i class="fa-solid fa-flag-checkered"></i></div>
+                    <div>
+                        <span>Completed</span>
+                        <strong id="completedGoals">0</strong>
+                        <small>Goals you've reached</small>
+                    </div>
+                </div>
+
+                <div class="goal-summary-card">
+                    <div class="summary-icon peach"><i class="fa-solid fa-chart-line"></i></div>
+                    <div>
+                        <span>Overall progress</span>
+                        <strong id="overallProgress">0%</strong>
+                        <small>Across your goals</small>
+                    </div>
+                </div>
+            </section>
+
+            <section class="goals-toolbar">
+                <div>
+                    <h2 class="section-title">My goals</h2>
+                    <p class="section-subtitle">Save a little at a time.</p>
+                </div>
+
+                <div class="goal-controls">
+                    <div class="goal-search">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <input id="goalSearch" type="text" placeholder="Search goals...">
+                    </div>
+
+                    <select id="goalFilter" class="goal-filter">
+                        <option value="all">All goals</option>
+                        <option value="active">Active</option>
+                        <option value="completed">Completed</option>
+                    </select>
+                </div>
+            </section>
+
+            <section id="goalGrid" class="goal-grid"></section>
+
+            <div id="emptyGoals" class="card empty-goals" hidden>
+                <div class="empty-icon"><i class="fa-solid fa-bullseye"></i></div>
+                <h3>No goals found</h3>
+                <p>Try another search or create a new savings goal.</p>
+                <button class="btn btn-primary" id="emptyAddGoal">
+                    <i class="fa-solid fa-plus"></i> Create goal
+                </button>
+            </div>
+
+        </section>
+    </main>
+
+    <nav class="mobile-nav">
+        <a href="dashboard.html" class="mobile-nav-link"><i class="fa-solid fa-house"></i><span>Home</span></a>
+        <a href="expenses.html" class="mobile-nav-link"><i class="fa-solid fa-receipt"></i><span>Expenses</span></a>
+        <button class="mobile-add" id="mobileAddGoal"><i class="fa-solid fa-plus"></i></button>
+        <a href="goals.html" class="mobile-nav-link active"><i class="fa-solid fa-bullseye"></i><span>Goals</span></a>
+        <a href="#" class="mobile-nav-link"><i class="fa-solid fa-bars"></i><span>More</span></a>
+    </nav>
+
+</div>
+
+<div class="modal-backdrop" id="goalModal">
+    <div class="goal-modal" role="dialog" aria-modal="true" aria-labelledby="goalModalTitle">
+        <button class="modal-close" id="closeGoalModal"><i class="fa-solid fa-xmark"></i></button>
+
+        <div class="modal-heading">
+            <div class="modal-icon"><i class="fa-solid fa-bullseye"></i></div>
+            <div>
+                <h2 id="goalModalTitle">Create a savings goal</h2>
+                <p>Give your goal a name and a target. You can add money whenever you want.</p>
+            </div>
+        </div>
+
+        <form id="goalForm">
+            <label>
+                Goal name
+                <input id="goalName" type="text" placeholder="e.g. New headphones" required maxlength="40">
+            </label>
+
+            <div class="form-row">
+                <label>
+                    Target amount
+                    <div class="input-with-prefix"><span>₹</span><input id="goalTarget" type="number" min="1" step="1" placeholder="10000" required></div>
+                </label>
+
+                <label>
+                    Already saved
+                    <div class="input-with-prefix"><span>₹</span><input id="goalInitial" type="number" min="0" step="1" value="0"></div>
+                </label>
+            </div>
+
+            <label>
+                Icon
+                <select id="goalIcon">
+                    <option value="laptop">💻 Laptop</option>
+                    <option value="plane">✈️ Trip</option>
+                    <option value="book">📚 Education</option>
+                    <option value="gift">🎁 Gift</option>
+                    <option value="phone">📱 Phone</option>
+                    <option value="heart">💜 Personal</option>
+                    <option value="piggy">🐷 General saving</option>
+                </select>
+            </label>
+
+            <div class="modal-actions">
+                <button type="button" class="btn btn-secondary" id="cancelGoal">Cancel</button>
+                <button type="submit" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Create goal</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="modal-backdrop" id="addMoneyModal">
+    <div class="goal-modal small-modal" role="dialog" aria-modal="true">
+        <button class="modal-close" id="closeMoneyModal"><i class="fa-solid fa-xmark"></i></button>
+        <div class="modal-heading">
+            <div class="modal-icon mint-icon"><i class="fa-solid fa-coins"></i></div>
+            <div>
+                <h2>Add money</h2>
+                <p id="moneyGoalLabel">Add to your goal.</p>
+            </div>
+        </div>
+
+        <form id="moneyForm">
+            <label>
+                Amount to add
+                <div class="input-with-prefix"><span>₹</span><input id="moneyAmount" type="number" min="1" step="1" placeholder="500" required></div>
+            </label>
+
+            <div class="modal-actions">
+                <button type="button" class="btn btn-secondary" id="cancelMoney">Cancel</button>
+                <button type="submit" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Add money</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="../static/js/goals.js"></script>
+</body>
+</html>
