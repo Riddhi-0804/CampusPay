@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Create Account — CampusPay</title>
+
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <!-- Font Awesome -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    >
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="../static/css/style.css">
+    <link rel="stylesheet" href="../static/css/auth.css">
+</head>
+
+
+<body>
+
+    <main class="auth-page">
+
+        <!-- =====================================================
+             LEFT VISUAL
+             ===================================================== -->
+
+        <section class="auth-visual">
+
+            <a href="/" class="auth-brand">
+
+                <div class="auth-brand-icon">
+                    <i class="fa-solid fa-wallet"></i>
+                </div>
+
+                <span>CampusPay</span>
+
+            </a>
+
+
+            <div class="auth-message">
+
+                <span class="auth-kicker">
+                    Built for campus life
+                </span>
+
+                <h1>
+                    Your money,
+                    <span>but smarter.</span>
+                </h1>
+
+                <p>
+                    Track your spending, split expenses with friends,
+                    discover student deals and save a little smarter.
+                </p>
+
+
+                <div class="auth-features">
+
+                    <div class="auth-feature">
+
+                        <div class="auth-feature-icon">
+                            <i class="fa-solid fa-chart-pie"></i>
+                        </div>
+
+                        <div>
+                            <strong>Manage</strong>
+                            <span>your everyday spending</span>
+                        </div>
+
+                    </div>
+
+
+                    <div class="auth-feature">
+
+                        <div class="auth-feature-icon mint">
+                            <i class="fa-solid fa-users"></i>
+                        </div>
+
+                        <div>
+                            <strong>Split</strong>
+                            <span>without the awkward math</span>
+                        </div>
+
+                    </div>
+
+
+                    <div class="auth-feature">
+
+                        <div class="auth-feature-icon pink">
+                            <i class="fa-solid fa-wand-magic-sparkles"></i>
+                        </div>
+
+                        <div>
+                            <strong>Save</strong>
+                            <span>with smarter insights</span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Decorative floating cards -->
+
+            <div class="auth-floating-card card-one">
+
+                <i class="fa-solid fa-piggy-bank"></i>
+
+                <div>
+                    <span>Potential savings</span>
+                    <strong>₹450</strong>
+                </div>
+
+            </div>
+
+
+            <div class="auth-floating-card card-two">
+
+                <i class="fa-solid fa-receipt"></i>
+
+                <div>
+                    <span>Shared expense</span>
+                    <strong>₹520 / 4</strong>
+                </div>
+
+            </div>
+
+
+            <div class="auth-orb auth-orb-one"></div>
+            <div class="auth-orb auth-orb-two"></div>
+
+        </section>
+
+
+        <!-- =====================================================
+             REGISTER FORM
+             ===================================================== -->
+
+        <section class="auth-form-section">
+
+            <div class="auth-form-wrapper">
+
+                <!-- Mobile Brand -->
+
+                <div class="mobile-brand">
+
+                    <div class="auth-brand-icon">
+                        <i class="fa-solid fa-wallet"></i>
+                    </div>
+
+                    <span>CampusPay</span>
+
+                </div>
+
+
+                <!-- Heading -->
+
+                <div class="auth-heading">
+
+                    <span class="auth-small-label">
+                        GET STARTED
+                    </span>
+
+                    <h2>
+                        Create your account
+                    </h2>
+
+                    <p>
+                        Let's make your money life a little easier.
+                    </p>
+
+                </div>
+
+
+                <!-- Register Form -->
+
+                <form
+                    class="auth-form"
+                    id="registerForm"
+                >
+
+                    <!-- Full Name -->
+
+                    <div class="form-group">
+
+                        <label for="fullName">
+                            Full name
+                        </label>
+
+                        <div class="input-wrapper">
+
+                            <i class="fa-regular fa-user"></i>
+
+                            <input
+                                type="text"
+                                id="fullName"
+                                name="full_name"
+                                placeholder="Enter your name"
+                                autocomplete="name"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- College Name -->
+
+                    <div class="form-group">
+
+                        <label for="collegeName">
+                            College name
+                        </label>
+
+                        <div class="input-wrapper">
+
+                            <i class="fa-solid fa-building-columns"></i>
+
+                            <input
+                                type="text"
+                                id="collegeName"
+                                name="college_name"
+                                placeholder="Enter your college name"
+                                autocomplete="organization"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- College Email -->
+
+                    <div class="form-group">
+
+                        <label for="email">
+                            College email
+                        </label>
+
+                        <div class="input-wrapper">
+
+                            <i class="fa-regular fa-envelope"></i>
+
+                            <input
+                                type="email"
+                                id="email"
+                                name="email"
+                                placeholder="you@college.edu"
+                                autocomplete="email"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Password -->
+
+                    <div class="form-group">
+
+                        <label for="password">
+                            Password
+                        </label>
+
+                        <div class="input-wrapper">
+
+                            <i class="fa-solid fa-lock"></i>
+
+                            <input
+                                type="password"
+                                id="password"
+                                name="password"
+                                placeholder="Create a password"
+                                autocomplete="new-password"
+                                required
+                            >
+
+                            <button
+                                type="button"
+                                class="password-toggle"
+                                data-target="password"
+                                aria-label="Show password"
+                            >
+                                <i class="fa-regular fa-eye"></i>
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Terms -->
+
+                    <label class="terms">
+
+                        <input
+                            type="checkbox"
+                            name="terms"
+                            required
+                        >
+
+                        <span>
+                            I agree to the
+                            <a href="#">
+                                Terms &amp; Conditions
+                            </a>
+                            and Privacy Policy.
+                        </span>
+
+                    </label>
+
+
+                    <!-- Submit -->
+
+                    <button
+                        type="submit"
+                        class="auth-submit"
+                    >
+
+                        Create account
+
+                        <i class="fa-solid fa-arrow-right"></i>
+
+                    </button>
+
+                </form>
+
+
+                <!-- Login Link -->
+
+                <p class="auth-switch">
+
+                    Already have an account?
+
+                    <a href="/login">
+                        Log in
+                    </a>
+
+                </p>
+
+
+                <!-- Footer Note -->
+
+                <p class="auth-footer-note">
+
+                    <i class="fa-solid fa-shield-halved"></i>
+
+                    Your financial data stays private.
+
+                </p>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- JavaScript -->
+
+    <script src="../static/js/auth.js"></script>
+
+</body>
+
+</html>

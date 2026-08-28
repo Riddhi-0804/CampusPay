@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Login — CampusPay</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    >
+
+    <link rel="stylesheet" href="../static/css/style.css">
+    <link rel="stylesheet" href="../static/css/auth.css">
+
+</head>
+
+
+<body>
+
+    <main class="auth-page">
+
+
+        <!-- =====================================================
+             LEFT VISUAL
+             ===================================================== -->
+
+        <section class="auth-visual">
+
+            <a href="landing.html" class="auth-brand">
+
+                <div class="auth-brand-icon">
+                    <i class="fa-solid fa-wallet"></i>
+                </div>
+
+                <span>CampusPay</span>
+
+            </a>
+
+
+            <div class="auth-message">
+
+                <span class="auth-kicker">
+                    Welcome back
+                </span>
+
+                <h1>
+                    Let's see how
+                    <span>your money is doing.</span>
+                </h1>
+
+                <p>
+                    Your spending, shared expenses and savings goals
+                    are waiting for you.
+                </p>
+
+
+                <div class="login-mini-stats">
+
+                    <div>
+
+                        <span>This month</span>
+
+                        <strong>
+                            ₹8,580
+                        </strong>
+
+                        <small>
+                            total spending
+                        </small>
+
+                    </div>
+
+
+                    <div>
+
+                        <span>Saved</span>
+
+                        <strong>
+                            ₹1,240
+                        </strong>
+
+                        <small>
+                            towards your goals
+                        </small>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="auth-floating-card card-one">
+
+                <i class="fa-solid fa-wand-magic-sparkles"></i>
+
+                <div>
+                    <span>AI insight</span>
+                    <strong>Save ₹450 this month</strong>
+                </div>
+
+            </div>
+
+
+            <div class="auth-floating-card card-two">
+
+                <i class="fa-solid fa-circle-check"></i>
+
+                <div>
+                    <span>Budget status</span>
+                    <strong>You're on track ✨</strong>
+                </div>
+
+            </div>
+
+
+            <div class="auth-orb auth-orb-one"></div>
+            <div class="auth-orb auth-orb-two"></div>
+
+        </section>
+
+
+
+        <!-- =====================================================
+             LOGIN FORM
+             ===================================================== -->
+
+        <section class="auth-form-section">
+
+            <div class="auth-form-wrapper">
+
+
+                <div class="mobile-brand">
+
+                    <div class="auth-brand-icon">
+                        <i class="fa-solid fa-wallet"></i>
+                    </div>
+
+                    <span>CampusPay</span>
+
+                </div>
+
+
+                <div class="auth-heading">
+
+                    <span class="auth-small-label">
+                        WELCOME BACK
+                    </span>
+
+                    <h2>
+                        Log in to CampusPay
+                    </h2>
+
+                    <p>
+                        Pick up right where you left off.
+                    </p>
+
+                </div>
+
+
+                <form class="auth-form" id="loginForm">
+
+
+                    <!-- Email -->
+
+                    <div class="form-group">
+
+                        <label for="loginEmail">
+                            College email
+                        </label>
+
+                        <div class="input-wrapper">
+
+                            <i class="fa-regular fa-envelope"></i>
+
+                            <input
+                                type="email"
+                                id="loginEmail"
+                                name="email"
+                                placeholder="you@college.edu"
+                                autocomplete="email"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Password -->
+
+                    <div class="form-group">
+
+                        <div class="label-row">
+
+                            <label for="loginPassword">
+                                Password
+                            </label>
+
+                            <a href="#">
+                                Forgot password?
+                            </a>
+
+                        </div>
+
+
+                        <div class="input-wrapper">
+
+                            <i class="fa-solid fa-lock"></i>
+
+                            <input
+                                type="password"
+                                id="loginPassword"
+                                name="password"
+                                placeholder="Enter your password"
+                                autocomplete="current-password"
+                                required
+                            >
+
+                            <button
+                                type="button"
+                                class="password-toggle"
+                                data-target="loginPassword"
+                                aria-label="Show password"
+                            >
+                                <i class="fa-regular fa-eye"></i>
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <button
+                        type="submit"
+                        class="auth-submit"
+                    >
+
+                        Log in
+
+                        <i class="fa-solid fa-arrow-right"></i>
+
+                    </button>
+
+
+                </form>
+
+
+                <p class="auth-switch">
+
+                    Don't have an account?
+
+                    <a href="register.html">
+                        Create one
+                    </a>
+
+                </p>
+
+
+                <p class="auth-footer-note">
+
+                    <i class="fa-solid fa-shield-halved"></i>
+
+                    Your financial data stays private.
+
+                </p>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <script src="../static/js/auth.js"></script>
+
+</body>
+
+</html>

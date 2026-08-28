@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CampusPay — Manage. Split. Save. Smarter.</title>
+
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <!-- Font Awesome -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    >
+
+    <!-- CampusPay -->
+    <link rel="stylesheet" href="../static/css/style.css">
+    <link rel="stylesheet" href="../static/css/landing.css">
+
+</head>
+
+
+<body>
+
+    <div class="landing-page">
+
+
+        <!-- =====================================================
+             NAVBAR
+             ===================================================== -->
+
+        <header class="landing-nav">
+
+            <a href="/" class="landing-brand">
+
+                <div class="landing-brand-mark">
+                    <i class="fa-solid fa-wallet"></i>
+                </div>
+
+                <span>CampusPay</span>
+
+            </a>
+
+
+            <nav class="landing-links">
+
+                <a href="#features">Features</a>
+                <a href="#how-it-works">How it works</a>
+                <a href="#student-life">For students</a>
+
+            </nav>
+
+
+            <div class="landing-nav-actions">
+
+                <a href="/login" class="nav-login">
+                    Log in
+                </a>
+
+                <a href="/register" class="btn btn-light">
+                    Get started
+                    <i class="fa-solid fa-arrow-right"></i>
+                </a>
+
+            </div>
+
+        </header>
+
+
+
+        <!-- =====================================================
+             HERO
+             ===================================================== -->
+
+        <main>
+
+
+            <section class="hero">
+
+                <!-- Decorative shapes -->
+
+                <div class="hero-orb orb-one"></div>
+                <div class="hero-orb orb-two"></div>
+                <div class="hero-orb orb-three"></div>
+
+
+                <div class="hero-content">
+
+                    <div class="hero-eyebrow">
+
+                        <span class="eyebrow-dot"></span>
+
+                        Built for student life
+
+                    </div>
+
+
+                    <h1>
+
+                        Your money,
+                        <span>made smarter.</span>
+
+                    </h1>
+
+
+                    <p class="hero-description">
+
+                        Track your spending, split bills with friends,
+                        discover student deals and make smarter money
+                        decisions — all in one place.
+
+                    </p>
+
+
+                    <div class="hero-actions">
+
+                        <!-- FIXED: Flask route -->
+
+                        <a href="/register" class="hero-primary-btn">
+
+                            Get started for free
+
+                            <i class="fa-solid fa-arrow-right"></i>
+
+                        </a>
+
+
+                        <a href="#features" class="hero-secondary-btn">
+
+                            Explore CampusPay
+
+                            <i class="fa-solid fa-chevron-down"></i>
+
+                        </a>
+
+                    </div>
+
+
+                    <div class="hero-note">
+
+                        <i class="fa-solid fa-circle-check"></i>
+
+                        Designed around campus life, not complicated finance.
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- =================================================
+                     PRODUCT PREVIEW
+                     ================================================= -->
+
+                <div class="hero-preview-wrapper">
+
+                    <div class="preview-glow"></div>
+
+
+                    <div class="dashboard-preview">
+
+
+                        <!-- Preview top -->
+
+                        <div class="preview-top">
+
+                            <div>
+
+                                <span class="preview-small">
+                                    CampusPay
+                                </span>
+
+                                <h3>
+                                    Good evening 👋
+                                </h3>
+
+                            </div>
+
+
+                            <div class="preview-avatar">
+                                DP
+                            </div>
+
+                        </div>
+
+
+                        <!-- Preview stats -->
+
+                        <div class="preview-stats">
+
+                            <div class="preview-stat purple">
+
+                                <span>
+                                    Monthly budget
+                                </span>
+
+                                <strong>
+                                    ₹12,000
+                                </strong>
+
+                                <small>
+                                    ₹3,420 remaining
+                                </small>
+
+                            </div>
+
+
+                            <div class="preview-stat mint">
+
+                                <span>
+                                    Spent this month
+                                </span>
+
+                                <strong>
+                                    ₹8,580
+                                </strong>
+
+                                <small>
+                                    12.4% from last month
+                                </small>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- AI insight -->
+
+                        <div class="preview-ai">
+
+                            <div class="preview-ai-icon">
+                                <i class="fa-solid fa-wand-magic-sparkles"></i>
+                            </div>
+
+                            <div>
+
+                                <span>
+                                    A little money insight
+                                </span>
+
+                                <p>
+                                    You could save around
+                                    <strong>₹450</strong>
+                                    with student offers.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- Chart -->
+
+                        <div class="preview-chart">
+
+                            <div class="preview-chart-header">
+
+                                <span>
+                                    Spending overview
+                                </span>
+
+                                <span>
+                                    This month
+                                </span>
+
+                            </div>
+
+
+                            <div class="mini-chart">
+
+                                <div class="chart-bars">
+
+                                    <span style="height: 35%"></span>
+                                    <span style="height: 55%"></span>
+                                    <span style="height: 43%"></span>
+                                    <span style="height: 70%"></span>
+                                    <span style="height: 52%"></span>
+                                    <span style="height: 82%"></span>
+                                    <span style="height: 63%"></span>
+
+                                </div>
+
+                                <div class="chart-line-preview"></div>
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =====================================================
+                 TRUST / STAT STRIP
+                 ===================================================== -->
+
+            <section class="student-strip">
+
+                <div class="strip-item">
+
+                    <i class="fa-solid fa-wallet"></i>
+
+                    <div>
+                        <strong>Track</strong>
+                        <span>every rupee</span>
+                    </div>
+
+                </div>
+
+
+                <div class="strip-divider"></div>
+
+
+                <div class="strip-item">
+
+                    <i class="fa-solid fa-users"></i>
+
+                    <div>
+                        <strong>Split</strong>
+                        <span>without the awkward math</span>
+                    </div>
+
+                </div>
+
+
+                <div class="strip-divider"></div>
+
+
+                <div class="strip-item">
+
+                    <i class="fa-solid fa-piggy-bank"></i>
+
+                    <div>
+                        <strong>Save</strong>
+                        <span>with smarter choices</span>
+                    </div>
+
+                </div>
+
+
+                <div class="strip-divider"></div>
+
+
+                <div class="strip-item">
+
+                    <i class="fa-solid fa-wand-magic-sparkles"></i>
+
+                    <div>
+                        <strong>Ask AI</strong>
+                        <span>about your money</span>
+                    </div>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =====================================================
+                 FEATURES
+                 ===================================================== -->
+
+            <section class="landing-section" id="features">
+
+                <div class="section-intro">
+
+                    <span class="section-kicker">
+                        Everything in one place
+                    </span>
+
+                    <h2>
+                        Your finances,
+                        <span>without the finance-bro energy.</span>
+                    </h2>
+
+                    <p>
+                        CampusPay brings together the money problems
+                        students actually deal with every week.
+                    </p>
+
+                </div>
+
+
+                <div class="feature-grid">
+
+
+                    <article class="feature-card feature-large purple-card">
+
+                        <div class="feature-icon">
+                            <i class="fa-solid fa-chart-pie"></i>
+                        </div>
+
+                        <span class="feature-number">
+                            01
+                        </span>
+
+                        <h3>
+                            Know where your money goes.
+                        </h3>
+
+                        <p>
+                            Track expenses, set budgets and understand
+                            your spending without staring at a spreadsheet.
+                        </p>
+
+                        <div class="feature-visual spending-visual">
+
+                            <div class="visual-row">
+                                <span>Food</span>
+                                <strong>₹3,240</strong>
+                            </div>
+
+                            <div class="visual-progress">
+                                <span style="width: 72%"></span>
+                            </div>
+
+                            <div class="visual-row">
+                                <span>Transport</span>
+                                <strong>₹1,860</strong>
+                            </div>
+
+                            <div class="visual-progress mint-progress">
+                                <span style="width: 48%"></span>
+                            </div>
+
+                        </div>
+
+                    </article>
+
+
+                    <article class="feature-card mint-card">
+
+                        <div class="feature-icon">
+                            <i class="fa-solid fa-users"></i>
+                        </div>
+
+                        <span class="feature-number">
+                            02
+                        </span>
+
+                        <h3>
+                            Split it. Forget it.
+                        </h3>
+
+                        <p>
+                            Trips, dinners, hostel supplies —
+                            SmartSplit handles the awkward calculations.
+                        </p>
+
+                        <div class="split-visual">
+
+                            <span>₹2,000</span>
+
+                            <div class="split-people">
+
+                                <span>DP</span>
+                                <span>SK</span>
+                                <span>AR</span>
+                                <span>+</span>
+
+                            </div>
+
+                            <small>
+                                Simplest settlement calculated ✨
+                            </small>
+
+                        </div>
+
+                    </article>
+
+
+                    <article class="feature-card pink-card">
+
+                        <div class="feature-icon">
+                            <i class="fa-solid fa-tags"></i>
+                        </div>
+
+                        <span class="feature-number">
+                            03
+                        </span>
+
+                        <h3>
+                            Spend less as a student.
+                        </h3>
+
+                        <p>
+                            Discover student discounts and cheaper
+                            alternatives based on what you actually use.
+                        </p>
+
+                        <div class="deal-visual">
+
+                            <div>
+                                <span>Cloud storage</span>
+                                <strong>₹149/mo</strong>
+                            </div>
+
+                            <span class="save-badge">
+                                Save ₹150
+                            </span>
+
+                        </div>
+
+                    </article>
+
+
+                    <article class="feature-card feature-large peach-card">
+
+                        <div class="feature-icon">
+                            <i class="fa-solid fa-wand-magic-sparkles"></i>
+                        </div>
+
+                        <span class="feature-number">
+                            04
+                        </span>
+
+                        <h3>
+                            Your money has an AI sidekick.
+                        </h3>
+
+                        <p>
+                            Ask questions about your spending, budgets,
+                            savings goals or shared expenses and get
+                            insights based on your own CampusPay data.
+                        </p>
+
+                        <div class="ai-chat-visual">
+
+                            <div class="chat-bubble user-bubble">
+                                Can I afford a ₹2,000 purchase?
+                            </div>
+
+                            <div class="chat-bubble ai-bubble">
+
+                                <i class="fa-solid fa-wand-magic-sparkles"></i>
+
+                                Based on your current budget,
+                                you're on track. I'd wait until
+                                your next expense clears though.
+
+                            </div>
+
+                        </div>
+
+                    </article>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =====================================================
+                 HOW IT WORKS
+                 ===================================================== -->
+
+            <section class="how-section" id="how-it-works">
+
+                <div class="section-intro centered">
+
+                    <span class="section-kicker">
+                        Simple by design
+                    </span>
+
+                    <h2>
+                        Manage. Split. <span>Save.</span>
+                    </h2>
+
+                    <p>
+                        Three simple steps to make your campus money
+                        life a little less chaotic.
+                    </p>
+
+                </div>
+
+
+                <div class="steps">
+
+
+                    <div class="step">
+
+                        <div class="step-number">
+                            01
+                        </div>
+
+                        <div class="step-icon">
+                            <i class="fa-solid fa-wallet"></i>
+                        </div>
+
+                        <h3>
+                            Manage
+                        </h3>
+
+                        <p>
+                            Keep your expenses, budgets and goals
+                            in one simple overview.
+                        </p>
+
+                    </div>
+
+
+                    <div class="step-connector"></div>
+
+
+                    <div class="step">
+
+                        <div class="step-number">
+                            02
+                        </div>
+
+                        <div class="step-icon">
+                            <i class="fa-solid fa-people-arrows"></i>
+                        </div>
+
+                        <h3>
+                            Split
+                        </h3>
+
+                        <p>
+                            Handle group expenses without calculating
+                            who owes whom five times.
+                        </p>
+
+                    </div>
+
+
+                    <div class="step-connector"></div>
+
+
+                    <div class="step">
+
+                        <div class="step-number">
+                            03
+                        </div>
+
+                        <div class="step-icon">
+                            <i class="fa-solid fa-piggy-bank"></i>
+                        </div>
+
+                        <h3>
+                            Save
+                        </h3>
+
+                        <p>
+                            Get personalized insights and discover
+                            opportunities to spend smarter.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =====================================================
+                 STUDENT LIFE
+                 ===================================================== -->
+
+            <section class="student-life-section" id="student-life">
+
+                <div class="student-life-card">
+
+                    <div class="student-life-content">
+
+                        <span class="section-kicker">
+                            Made for campus life
+                        </span>
+
+                        <h2>
+                            Because your money problems
+                            aren't exactly <span>bank-shaped.</span>
+                        </h2>
+
+                        <p>
+                            Canteen runs. Metro recharges. Hostel supplies.
+                            Group trips. Society events. Subscriptions.
+                            Somehow, it all adds up.
+                        </p>
+
+                        <!-- FIXED: Flask route -->
+
+                        <a href="/register" class="hero-primary-btn">
+
+                            Start managing smarter
+
+                            <i class="fa-solid fa-arrow-right"></i>
+
+                        </a>
+
+                    </div>
+
+
+                    <div class="student-life-cloud">
+
+                        <span class="floating-pill pill-one">
+                            🍜 Canteen
+                        </span>
+
+                        <span class="floating-pill pill-two">
+                            🚇 Metro
+                        </span>
+
+                        <span class="floating-pill pill-three">
+                            ✈️ Trip
+                        </span>
+
+                        <span class="floating-pill pill-four">
+                            📚 Books
+                        </span>
+
+                        <span class="floating-pill pill-five">
+                            🏠 Hostel
+                        </span>
+
+                        <span class="floating-pill pill-six">
+                            🎧 Subscriptions
+                        </span>
+
+                        <div class="life-center">
+
+                            <i class="fa-solid fa-wallet"></i>
+
+                            <span>
+                                CampusPay
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =====================================================
+                 FINAL CTA
+                 ===================================================== -->
+
+            <section class="final-cta">
+
+                <div class="final-cta-glow"></div>
+
+                <span class="section-kicker">
+                    Ready?
+                </span>
+
+                <h2>
+                    Make your money
+                    <span>work smarter.</span>
+                </h2>
+
+                <p>
+                    Your campus life is complicated enough.
+                    Your finances don't have to be.
+                </p>
+
+                <!-- FIXED: Flask route -->
+
+                <a href="/register" class="hero-primary-btn">
+
+                    Create your free account
+
+                    <i class="fa-solid fa-arrow-right"></i>
+
+                </a>
+
+            </section>
+
+        </main>
+
+
+
+        <!-- =====================================================
+             FOOTER
+             ===================================================== -->
+
+        <footer class="landing-footer">
+
+            <div class="footer-brand">
+
+                <div class="landing-brand-mark">
+                    <i class="fa-solid fa-wallet"></i>
+                </div>
+
+                <div>
+
+                    <strong>
+                        CampusPay
+                    </strong>
+
+                    <span>
+                        Manage. Split. Save. Smarter.
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <span class="footer-note">
+                Built for students, by students 💜
+            </span>
+
+        </footer>
+
+
+    </div>
+
+
+</body>
+
+</html>

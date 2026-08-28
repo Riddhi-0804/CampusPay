@@ -1,0 +1,603 @@
+/* =========================================================
+   CAMPUSPAY — GLOBAL DESIGN SYSTEM
+   ========================================================= */
+
+
+/* =========================================================
+   1. GOOGLE FONT
+   ========================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+
+/* =========================================================
+   2. DESIGN TOKENS
+   ========================================================= */
+
+:root {
+
+    /* ---------- Brand Colors ---------- */
+
+    --primary: #7569C9;
+    --primary-dark: #6257B2;
+    --primary-light: #EFEDFA;
+
+    --purple: #9A8BD4;
+    --purple-light: #F3F0FC;
+
+    --mint: #2EC9A3;
+    --mint-light: #E7FAF5;
+
+    --pink: #FF6F9C;
+    --pink-light: #FFEAF1;
+
+    --peach: #FFB86B;
+    --peach-light: #FFF2E3;
+
+
+    /* ---------- Backgrounds ---------- */
+
+    --background: #FAF9FD;
+    --surface: #FFFFFF;
+    --surface-soft: #F6F4FB;
+
+
+    /* ---------- Text ---------- */
+
+    --text-primary: #1F2142;
+    --text-secondary: #74758A;
+    --text-muted: #9B9CAE;
+    --text-white: #FFFFFF;
+
+
+    /* ---------- Borders ---------- */
+
+    --border: #ECEAF3;
+    --border-dark: #DDD9E8;
+
+
+    /* ---------- Status ---------- */
+
+    --success: #2EC9A3;
+    --success-light: #E7FAF5;
+
+    --danger: #F06B7D;
+    --danger-light: #FFECEF;
+
+    --warning: #FFB86B;
+    --warning-light: #FFF2E3;
+
+
+    /* ---------- Typography ---------- */
+
+    --font-primary: 'Plus Jakarta Sans', sans-serif;
+
+
+    /* ---------- Border Radius ---------- */
+
+    --radius-sm: 10px;
+    --radius-md: 16px;
+    --radius-lg: 22px;
+    --radius-xl: 28px;
+
+
+    /* ---------- Shadows ---------- */
+
+    --shadow-sm: 0 2px 10px rgba(55, 50, 90, 0.05);
+
+    --shadow-md: 0 8px 25px rgba(55, 50, 90, 0.07);
+
+    --shadow-lg: 0 15px 40px rgba(55, 50, 90, 0.10);
+
+
+    /* ---------- Layout ---------- */
+
+    --sidebar-width: 240px;
+
+    --content-max-width: 1440px;
+
+    --transition: 0.25s ease;
+}
+
+
+/* =========================================================
+   3. RESET
+   ========================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-primary);
+    background: var(--background);
+    color: var(--text-primary);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+button,
+input,
+textarea,
+select {
+    font: inherit;
+}
+
+button {
+    border: none;
+    cursor: pointer;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+ul,
+ol {
+    list-style: none;
+}
+
+
+/* =========================================================
+   4. TYPOGRAPHY
+   ========================================================= */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: var(--text-primary);
+    line-height: 1.25;
+    font-weight: 700;
+}
+
+h1 {
+    font-size: clamp(2.2rem, 4vw, 3.8rem);
+    font-weight: 800;
+}
+
+h2 {
+    font-size: clamp(1.7rem, 3vw, 2.5rem);
+}
+
+h3 {
+    font-size: 1.25rem;
+}
+
+h4 {
+    font-size: 1rem;
+}
+
+p {
+    color: var(--text-secondary);
+}
+
+.text-primary {
+    color: var(--text-primary);
+}
+
+.text-secondary {
+    color: var(--text-secondary);
+}
+
+.text-muted {
+    color: var(--text-muted);
+}
+
+.text-purple {
+    color: var(--primary);
+}
+
+.text-mint {
+    color: var(--mint);
+}
+
+.text-pink {
+    color: var(--pink);
+}
+
+.text-peach {
+    color: var(--peach);
+}
+
+
+/* =========================================================
+   5. BUTTONS
+   ========================================================= */
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    padding: 12px 20px;
+
+    border-radius: var(--radius-sm);
+
+    font-size: 0.9rem;
+    font-weight: 600;
+
+    transition:
+        transform var(--transition),
+        background var(--transition),
+        box-shadow var(--transition);
+}
+
+.btn:hover {
+    transform: translateY(-1px);
+}
+
+
+/* Primary */
+
+.btn-primary {
+    color: var(--text-white);
+    background: var(--primary);
+
+    box-shadow: 0 6px 18px rgba(91, 77, 255, 0.22);
+}
+
+.btn-primary:hover {
+    background: var(--primary-dark);
+}
+
+
+/* Secondary */
+
+.btn-secondary {
+    color: var(--primary);
+    background: var(--primary-light);
+}
+
+.btn-secondary:hover {
+    background: #E4DEFF;
+}
+
+
+/* Outline */
+
+.btn-outline {
+    color: var(--primary);
+    background: transparent;
+
+    border: 1px solid var(--primary);
+}
+
+.btn-outline:hover {
+    background: var(--primary-light);
+}
+
+
+/* Mint */
+
+.btn-mint {
+    color: #FFFFFF;
+    background: var(--mint);
+}
+
+.btn-mint:hover {
+    background: #25B594;
+}
+
+
+/* =========================================================
+   6. CARDS
+   ========================================================= */
+
+.card {
+    background: var(--surface);
+
+    border: 1px solid var(--border);
+
+    border-radius: var(--radius-md);
+
+    box-shadow: var(--shadow-sm);
+
+    padding: 20px;
+
+    transition:
+        transform var(--transition),
+        box-shadow var(--transition);
+}
+
+.card:hover {
+    box-shadow: var(--shadow-md);
+}
+
+
+/* Colored accent cards */
+
+.card-purple {
+    border-left: 4px solid var(--primary);
+}
+
+.card-mint {
+    border-left: 4px solid var(--mint);
+}
+
+.card-pink {
+    border-left: 4px solid var(--pink);
+}
+
+.card-peach {
+    border-left: 4px solid var(--peach);
+}
+
+.card-purple-bottom {
+    border-left: 4px solid var(--primary);
+    border-bottom: 4px solid var(--primary);
+}
+
+
+/* =========================================================
+   7. BADGES / TAGS
+   ========================================================= */
+
+.badge {
+    display: inline-flex;
+    align-items: center;
+
+    padding: 5px 10px;
+
+    border-radius: 999px;
+
+    font-size: 0.72rem;
+    font-weight: 600;
+}
+
+
+/* Categories */
+
+.badge-food {
+    color: var(--primary);
+    background: var(--primary-light);
+}
+
+.badge-transport {
+    color: #168F78;
+    background: var(--mint-light);
+}
+
+.badge-education {
+    color: var(--purple);
+    background: var(--purple-light);
+}
+
+.badge-entertainment {
+    color: #D94F7C;
+    background: var(--pink-light);
+}
+
+.badge-other {
+    color: #C27B25;
+    background: var(--peach-light);
+}
+
+
+/* =========================================================
+   8. FORM ELEMENTS
+   ========================================================= */
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.form-label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.form-input,
+.form-select,
+.form-textarea {
+    width: 100%;
+
+    padding: 12px 14px;
+
+    background: var(--surface);
+
+    border: 1px solid var(--border-dark);
+
+    border-radius: var(--radius-sm);
+
+    color: var(--text-primary);
+
+    outline: none;
+
+    transition:
+        border-color var(--transition),
+        box-shadow var(--transition);
+}
+
+.form-input::placeholder,
+.form-textarea::placeholder {
+    color: var(--text-muted);
+}
+
+.form-input:focus,
+.form-select:focus,
+.form-textarea:focus {
+    border-color: var(--primary);
+
+    box-shadow: 0 0 0 3px rgba(91, 77, 255, 0.10);
+}
+
+.form-textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+
+/* =========================================================
+   9. ICON CONTAINERS
+   ========================================================= */
+
+.icon-box {
+    width: 42px;
+    height: 42px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 12px;
+
+    font-size: 1rem;
+}
+
+.icon-purple {
+    color: var(--primary);
+    background: var(--primary-light);
+}
+
+.icon-mint {
+    color: var(--mint);
+    background: var(--mint-light);
+}
+
+.icon-pink {
+    color: var(--pink);
+    background: var(--pink-light);
+}
+
+.icon-peach {
+    color: var(--peach);
+    background: var(--peach-light);
+}
+
+
+/* =========================================================
+   10. LAYOUT UTILITIES
+   ========================================================= */
+
+.container {
+    width: min(100% - 40px, var(--content-max-width));
+
+    margin-inline: auto;
+}
+
+.flex {
+    display: flex;
+}
+
+.flex-column {
+    display: flex;
+    flex-direction: column;
+}
+
+.items-center {
+    align-items: center;
+}
+
+.justify-between {
+    justify-content: space-between;
+}
+
+.justify-center {
+    justify-content: center;
+}
+
+.gap-sm {
+    gap: 8px;
+}
+
+.gap-md {
+    gap: 16px;
+}
+
+.gap-lg {
+    gap: 24px;
+}
+
+.grid {
+    display: grid;
+}
+
+
+/* =========================================================
+   11. DIVIDERS
+   ========================================================= */
+
+.divider {
+    width: 100%;
+    height: 1px;
+    background: var(--border);
+}
+
+
+/* =========================================================
+   12. SCROLLBAR
+   ========================================================= */
+
+::-webkit-scrollbar {
+    width: 7px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #D9D6E5;
+    border-radius: 20px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #BDB8D0;
+}
+
+
+/* =========================================================
+   13. SELECTION
+   ========================================================= */
+
+::selection {
+    color: #FFFFFF;
+    background: var(--primary);
+}
+
+
+/* =========================================================
+   14. RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 768px) {
+
+    .container {
+        width: min(100% - 28px, var(--content-max-width));
+    }
+
+    .card {
+        padding: 16px;
+    }
+
+    .btn {
+        padding: 11px 17px;
+    }
+
+    h1 {
+        font-size: 2.2rem;
+    }
+
+    h2 {
+        font-size: 1.8rem;
+    }
+}
