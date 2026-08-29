@@ -216,7 +216,7 @@ def dashboard():
         return redirect(url_for("login"))
 
     return render_template(
-        "/dashboard",
+        "dashboard.html",
         user_name=session.get("user_name"),
         user_email=session.get("user_email")
     )
