@@ -3,6 +3,7 @@ from datetime import date
 from config import Config
 
 from modules.auth import register_user, login_user
+from modules.profile import get_user_profile, update_user_profile
 
 from modules.expenses import (
     add_expense,
@@ -203,7 +204,75 @@ def login():
 
     return render_template("login.html")
 
+@app.route("/profile", methods=["GET"])
+def profile():
 
+    # User must be logged in
+    if "user_id" not in session:
+        return redirect(url_for("login"))
+
+    user_id = session["user_id"]
+
+    user = get_user_profile(user_id)
+
+    if not user:
+        session.clear()
+        return redirect(url_for("login"))
+
+    return render_template(
+        "profile.html",
+        user=user
+    )
+
+
+@app.route("/profile/update", methods=["POST"])
+def update_profile():
+
+    # User must be logged in
+    if "user_id" not in session:
+        return redirect(url_for("login"))
+
+    user_id = session["user_id"]
+
+    full_name = request.form.get("full_name", "").strip()
+    email = request.form.get("email", "").strip()
+    college_name = request.form.get("college_name", "").strip()
+    monthly_budget = request.form.get("monthly_budget", "").strip()
+
+    # Basic validation
+    if not full_name or not email or not college_name:
+        return "Name, email and college are required", 400
+
+    # Convert budget to a number
+    if monthly_budget:
+        try:
+            monthly_budget = float(monthly_budget)
+
+            if monthly_budget < 0:
+                return "Monthly budget cannot be negative", 400
+
+        except ValueError:
+            return "Please enter a valid monthly budget", 400
+
+    else:
+        monthly_budget = None
+
+    success, message = update_user_profile(
+        user_id,
+        full_name,
+        email,
+        college_name,
+        monthly_budget
+    )
+
+    if not success:
+        return message, 400
+
+    # Keep session data synchronized
+    session["user_name"] = full_name
+    session["user_email"] = email
+
+    return redirect(url_for("profile"))
 # =========================================================
 # DASHBOARD
 # =========================================================
@@ -215,33 +284,103 @@ def dashboard():
 
     user_id = session["user_id"]
 
+    user = get_user_profile(user_id)
+
+    if not user:
+        session.clear()
+        return redirect(url_for("login"))
+
     expenses = get_expenses(user_id)
     goals = get_goals(user_id)
-
-    expense_summary = calculate_expenses(expenses)
+    user_groups = get_user_groups(user_id)
 
     today = date.today()
 
     monthly_expenses = [
-        expense
-        for expense in expenses
+        expense for expense in expenses
         if expense["expense_date"].month == today.month
         and expense["expense_date"].year == today.year
     ]
 
     monthly_spending = sum(
-        float(expense["amount"])
-        for expense in monthly_expenses
+        float(expense["amount"]) for expense in monthly_expenses
     )
+
+    monthly_category_totals = {}
+    for expense in monthly_expenses:
+        category = expense["category"]
+        monthly_category_totals[category] = (
+            monthly_category_totals.get(category, 0)
+            + float(expense["amount"])
+        )
+
+    # Build a user-specific weekly trend for the current month.
+    weekly_spending = {}
+    for expense in monthly_expenses:
+        day = expense["expense_date"].day
+        week_number = ((day - 1) // 7) + 1
+        weekly_spending[week_number] = (
+            weekly_spending.get(week_number, 0)
+            + float(expense["amount"])
+        )
+
+    chart_labels = [f"Week {i}" for i in range(1, 6)]
+    chart_values = [round(weekly_spending.get(i, 0), 2) for i in range(1, 6)]
+
+    monthly_budget = (
+        float(user["monthly_budget"])
+        if user["monthly_budget"] is not None
+        else None
+    )
+
+    remaining_budget = (
+        monthly_budget - monthly_spending
+        if monthly_budget is not None
+        else None
+    )
+
+    # A simple, honest dashboard insight based only on the user's data.
+    if monthly_spending == 0:
+        insight_text = "You haven't recorded any expenses this month yet. Add your first expense to start seeing your spending patterns."
+    elif monthly_budget is not None and monthly_budget > 0:
+        budget_used = (monthly_spending / monthly_budget) * 100
+        if budget_used > 100:
+            insight_text = f"You've used {budget_used:.0f}% of your monthly budget. You're ₹{abs(remaining_budget):,.0f} over your current budget."
+        elif budget_used >= 80:
+            insight_text = f"You've used {budget_used:.0f}% of your monthly budget. You have ₹{remaining_budget:,.0f} remaining for this month."
+        else:
+            insight_text = f"You've used {budget_used:.0f}% of your monthly budget. You have ₹{remaining_budget:,.0f} remaining for this month."
+    else:
+        top_category = max(monthly_category_totals, key=monthly_category_totals.get)
+        top_amount = monthly_category_totals[top_category]
+        insight_text = f"You've spent ₹{monthly_spending:,.0f} this month. {top_category.capitalize()} is your largest category at ₹{top_amount:,.0f}."
+
+    dashboard_data = {
+        "chart_labels": chart_labels,
+        "chart_values": chart_values,
+        "monthly_spending": round(monthly_spending, 2),
+        "monthly_budget": monthly_budget,
+        "remaining_budget": round(remaining_budget, 2) if remaining_budget is not None else None,
+        "active_splits": len(user_groups),
+        "insight": insight_text
+    }
 
     return render_template(
         "dashboard.html",
-        user_name=session.get("user_name"),
-        user_email=session.get("user_email"),
+        user_name=user["full_name"],
+        user_email=user["email"],
+        user=user,
         expenses=expenses,
         goals=goals,
-        expense_summary=expense_summary,
-        monthly_spending=monthly_spending
+        user_groups=user_groups,
+        expense_summary={
+            "total_amount": sum(float(e["amount"]) for e in monthly_expenses),
+            "category_totals": monthly_category_totals
+        },
+        monthly_spending=monthly_spending,
+        monthly_budget=monthly_budget,
+        remaining_budget=remaining_budget,
+        dashboard_data=dashboard_data
     )
 
 @app.route("/expenses", methods=["GET"])

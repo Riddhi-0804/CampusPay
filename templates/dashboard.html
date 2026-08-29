@@ -183,15 +183,13 @@
                  ================================================= -->
 
             <div class="sidebar-user">
-
-                <div class="user-card">
+                <a href="/profile" class="user-card" style="text-decoration: none;">
 
                     <div class="user-avatar">
-                        {{ user_name[0]|upper if user_name else "U" }}
+                        {{ user_name[:1]|upper }}
                     </div>
 
                     <div class="user-info">
-
                         <span class="user-name">
                             {{ user_name }}
                         </span>
@@ -199,605 +197,328 @@
                         <span class="user-role">
                             CampusPay account
                         </span>
-
                     </div>
 
                     <div class="user-settings">
                         <i class="fa-solid fa-gear"></i>
                     </div>
 
+                </a>
+
+            </div>
+
+    </aside>
+
+
+    <!-- =================================================
+             MAIN CONTENT
+             ================================================= -->
+
+    <main class="main-content">
+
+
+        <!-- =================================================
+                 TOPBAR
+                 ================================================= -->
+
+        <header class="topbar">
+
+            <div class="topbar-left">
+
+                <span class="page-heading">
+                    Dashboard
+                </span>
+
+                <span class="page-heading-divider"></span>
+
+                <span class="page-status">
+
+                    <span class="status-dot"></span>
+
+                    CampusPay is ready
+
+                </span>
+
+            </div>
+
+
+            <div class="topbar-actions">
+
+                <!-- AI QUICK ACTION -->
+
+                <button class="ai-quick-action">
+
+                    <i class="fa-solid fa-wand-magic-sparkles"></i>
+
+                    <span>
+                        Ask AI anything...
+                    </span>
+
+                    <kbd>
+                        ⌘ K
+                    </kbd>
+
+                </button>
+
+
+                <!-- NOTIFICATIONS -->
+
+                <button class="topbar-icon">
+                    <i class="fa-regular fa-bell"></i>
+                </button>
+
+
+                <!-- PROFILE -->
+
+                <a href="/profile" class="topbar-icon" aria-label="Profile">
+                    <i class="fa-solid fa-user"></i>
+                </a>
+
+
+                <!-- ADD EXPENSE -->
+
+                <a href="/expenses" class="btn btn-primary">
+
+                    <i class="fa-solid fa-plus"></i>
+
+                    Add Expense
+
+                </a>
+
+            </div>
+
+        </header>
+
+
+        <!-- =================================================
+                 PAGE CONTENT
+                 ================================================= -->
+
+        <section class="page-content">
+
+
+            <!-- PAGE HEADER -->
+
+            <div class="page-header">
+
+                <div class="page-header-text">
+
+                    <h1 class="page-title">
+                        Good evening, {{ user_name }} 👋
+                    </h1>
+
+                    <p class="page-description">
+                        Here's how your money is doing today.
+                    </p>
+
                 </div>
 
             </div>
 
-        </aside>
-
-
-        <!-- =================================================
-             MAIN CONTENT
-             ================================================= -->
-
-        <main class="main-content">
-
 
             <!-- =================================================
-                 TOPBAR
-                 ================================================= -->
+                     FINANCIAL OVERVIEW
+                     ================================================= -->
 
-            <header class="topbar">
+            <div class="dashboard-grid">
 
-                <div class="topbar-left">
 
-                    <span class="page-heading">
-                        Dashboard
-                    </span>
+                <!-- MONTHLY BUDGET -->
 
-                    <span class="page-heading-divider"></span>
+                <div class="col-3">
 
-                    <span class="page-status">
+                    <div class="stat-card card-purple">
 
-                        <span class="status-dot"></span>
+                        <div class="stat-top">
 
-                        CampusPay is ready
+                            <span class="stat-label">
+                                Monthly Budget
+                            </span>
 
-                    </span>
+                            <div class="stat-icon icon-purple">
+                                <i class="fa-solid fa-wallet"></i>
+                            </div>
+
+                        </div>
+
+
+                        <div>
+
+                            <div class="stat-value">
+                                {% if monthly_budget is not none %}
+                                    ₹{{ "{:,.0f}".format(monthly_budget) }}
+                                {% else %}
+                                    Not set
+                                {% endif %}
+                            </div>
+
+                            <div class="stat-meta positive">
+                                <i class="fa-solid fa-wallet"></i>
+                                {% if monthly_budget is not none %}
+                                    ₹{{ "{:,.0f}".format(remaining_budget) }} remaining
+                                {% else %}
+                                    Set your budget in Profile
+                                {% endif %}
+                            </div>
+
+                        </div>
+
+                    </div>
 
                 </div>
 
 
-                <div class="topbar-actions">
+                <!-- SPENT THIS MONTH -->
 
-                    <!-- AI QUICK ACTION -->
+                <div class="col-3">
 
-                    <button class="ai-quick-action">
+                    <div class="stat-card card-mint">
 
+                        <div class="stat-top">
+
+                            <span class="stat-label">
+                                Spent This Month
+                            </span>
+
+                            <div class="stat-icon icon-mint">
+                                <i class="fa-solid fa-arrow-trend-up"></i>
+                            </div>
+
+                        </div>
+
+
+                        <div>
+
+                            <div class="stat-value">
+                                ₹{{ "{:,.0f}".format(monthly_spending) }}
+                            </div>
+
+                            <div class="stat-meta positive">
+
+                                <i class="fa-solid fa-calendar"></i>
+
+                                Current month spending
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- FRIENDS OWE -->
+
+                <div class="col-3">
+
+                    <div class="stat-card card-pink">
+
+                        <div class="stat-top">
+
+                            <span class="stat-label">
+                                Friends Owe You
+                            </span>
+
+                            <div class="stat-icon icon-pink">
+                                <i class="fa-solid fa-hand-holding-dollar"></i>
+                            </div>
+
+                        </div>
+
+
+                        <div>
+
+                            <div class="stat-value">
+                                ₹0
+                            </div>
+
+                            <div class="stat-meta positive">
+                                <i class="fa-solid fa-user-group"></i>
+                                Settlement tracking
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- YOU OWE -->
+
+                <div class="col-3">
+
+                    <div class="stat-card card-peach">
+
+                        <div class="stat-top">
+
+                            <span class="stat-label">
+                                You Owe
+                            </span>
+
+                            <div class="stat-icon icon-peach">
+                                <i class="fa-solid fa-money-bill-transfer"></i>
+                            </div>
+
+                        </div>
+
+
+                        <div>
+
+                            <div class="stat-value">
+                                ₹0
+                            </div>
+
+                            <div class="stat-meta positive">
+                                <i class="fa-solid fa-clock"></i>
+                                Settlement tracking
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                     AI MONEY INSIGHT
+                     ================================================= -->
+
+            <section class="dashboard-section">
+
+                <div class="ai-banner">
+
+                    <div class="ai-banner-icon">
                         <i class="fa-solid fa-wand-magic-sparkles"></i>
-
-                        <span>
-                            Ask AI anything...
-                        </span>
-
-                        <kbd>
-                            ⌘ K
-                        </kbd>
-
-                    </button>
+                    </div>
 
 
-                    <!-- NOTIFICATIONS -->
+                    <div class="ai-banner-content">
 
-                    <button class="topbar-icon">
-                        <i class="fa-regular fa-bell"></i>
-                    </button>
+                        <div class="ai-banner-label">
+                            A little money insight ✨
+                        </div>
 
-
-                    <!-- PROFILE -->
-
-                    <button class="topbar-icon">
-                        <i class="fa-solid fa-user"></i>
-                    </button>
-
-
-                    <!-- ADD EXPENSE -->
-
-                    <a href="/expenses" class="btn btn-primary">
-
-                        <i class="fa-solid fa-plus"></i>
-
-                        Add Expense
-
-                    </a>
-
-                </div>
-
-            </header>
-
-
-            <!-- =================================================
-                 PAGE CONTENT
-                 ================================================= -->
-
-            <section class="page-content">
-
-
-                <!-- PAGE HEADER -->
-
-                <div class="page-header">
-
-                    <div class="page-header-text">
-
-                        <h1 class="page-title">
-                            Good evening, {{ user_name }} 👋
-                        </h1>
-
-                        <p class="page-description">
-                            Here's how your money is doing today.
+                        <p class="ai-banner-text">
+                            {{ dashboard_data.insight }}
                         </p>
 
                     </div>
 
-                </div>
 
+                    <div class="ai-banner-action">
 
-                <!-- =================================================
-                     FINANCIAL OVERVIEW
-                     ================================================= -->
+                        <button class="btn btn-secondary">
 
-                <div class="dashboard-grid">
+                            See suggestions
 
+                            <i class="fa-solid fa-arrow-right"></i>
 
-                    <!-- MONTHLY BUDGET -->
-
-                    <div class="col-3">
-
-                        <div class="stat-card card-purple">
-
-                            <div class="stat-top">
-
-                                <span class="stat-label">
-                                    Monthly Budget
-                                </span>
-
-                                <div class="stat-icon icon-purple">
-                                    <i class="fa-solid fa-wallet"></i>
-                                </div>
-
-                            </div>
-
-
-                            <div>
-
-                                <div class="stat-value">
-                                    Not set
-                                </div>
-
-                                <div class="stat-meta positive">
-
-                                    <i class="fa-solid fa-wallet"></i>
-
-                                    Add a monthly budget from your budget settings
-
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-
-                    <!-- SPENT THIS MONTH -->
-
-                    <div class="col-3">
-
-                        <div class="stat-card card-mint">
-
-                            <div class="stat-top">
-
-                                <span class="stat-label">
-                                    Spent This Month
-                                </span>
-
-                                <div class="stat-icon icon-mint">
-                                    <i class="fa-solid fa-arrow-trend-up"></i>
-                                </div>
-
-                            </div>
-
-
-                            <div>
-
-                                <div class="stat-value">
-                                    ₹{{ "{:,.0f}".format(monthly_spending) }}
-                                </div>
-
-                                <div class="stat-meta positive">
-
-                                    <i class="fa-solid fa-calendar"></i>
-
-                                    Current month spending
-
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-
-                    <!-- FRIENDS OWE -->
-
-                    <div class="col-3">
-
-                        <div class="stat-card card-pink">
-
-                            <div class="stat-top">
-
-                                <span class="stat-label">
-                                    Friends Owe You
-                                </span>
-
-                                <div class="stat-icon icon-pink">
-                                    <i class="fa-solid fa-hand-holding-dollar"></i>
-                                </div>
-
-                            </div>
-
-
-                            <div>
-
-                                <div class="stat-value">
-                                    ₹0
-                                </div>
-
-                                <div class="stat-meta positive">
-
-                                    <i class="fa-solid fa-user-group"></i>
-
-                                    No settlements recorded yet
-
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-
-                    <!-- YOU OWE -->
-
-                    <div class="col-3">
-
-                        <div class="stat-card card-peach">
-
-                            <div class="stat-top">
-
-                                <span class="stat-label">
-                                    You Owe
-                                </span>
-
-                                <div class="stat-icon icon-peach">
-                                    <i class="fa-solid fa-money-bill-transfer"></i>
-                                </div>
-
-                            </div>
-
-
-                            <div>
-
-                                <div class="stat-value">
-                                    ₹0
-                                </div>
-
-                                <div class="stat-meta positive">
-
-                                    <i class="fa-solid fa-clock"></i>
-
-                                    No pending payments
-
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-                <!-- =================================================
-                     AI MONEY INSIGHT
-                     ================================================= -->
-
-                <section class="dashboard-section">
-
-                    <div class="ai-banner">
-
-                        <div class="ai-banner-icon">
-                            <i class="fa-solid fa-wand-magic-sparkles"></i>
-                        </div>
-
-
-                        <div class="ai-banner-content">
-
-                            <div class="ai-banner-label">
-                                A little money insight ✨
-                            </div>
-
-                            <p class="ai-banner-text">
-                                You've spent ₹{{ "{:,.0f}".format(monthly_spending) }} this month.
-                                Keep tracking your expenses to understand where
-                                your money is going and make smarter choices.
-                            </p>
-
-                        </div>
-
-
-                        <div class="ai-banner-action">
-
-                            <button class="btn btn-secondary">
-
-                                See suggestions
-
-                                <i class="fa-solid fa-arrow-right"></i>
-
-                            </button>
-
-                        </div>
-
-                    </div>
-
-                </section>
-
-
-                <!-- =================================================
-                     SPENDING OVERVIEW + RECENT EXPENSES
-                     ================================================= -->
-
-                <div class="dashboard-grid dashboard-section">
-
-
-                    <!-- SPENDING OVERVIEW -->
-
-                    <div class="col-7">
-
-                        <div class="card dashboard-panel">
-
-                            <div class="section-header">
-
-                                <div>
-
-                                    <h2 class="section-title">
-                                        Spending overview
-                                    </h2>
-
-                                    <p class="section-subtitle">
-                                        Your spending across this month
-                                    </p>
-
-                                </div>
-
-
-                                <button class="btn btn-secondary btn-small">
-
-                                    This month
-
-                                    <i class="fa-solid fa-chevron-down"></i>
-
-                                </button>
-
-                            </div>
-
-
-                            <!-- CHART -->
-
-                            <div class="spending-chart">
-
-                                <div class="chart-container">
-                                    <canvas id="spendingChart"></canvas>
-                                </div>
-
-
-                                <!-- SPENDING CATEGORIES -->
-
-                                <div class="spending-categories">
-
-                                    {% if expense_summary.category_totals %}
-                                        {% for category, amount in expense_summary.category_totals.items() %}
-                                        <div class="category-item">
-                                            <div class="category-info">
-                                                <span class="category-dot {% if category|lower == 'food' or category|lower == 'education' or category|lower == 'hostel' %}dot-purple{% elif category|lower == 'transport' or category|lower == 'bills' %}dot-mint{% elif category|lower == 'entertainment' or category|lower == 'shopping' %}dot-pink{% else %}dot-peach{% endif %}"></span>
-                                                <span>{{ category|capitalize }}</span>
-                                            </div>
-                                            <strong>₹{{ "{:,.0f}".format(amount) }}</strong>
-                                        </div>
-                                        {% endfor %}
-                                    {% else %}
-                                        <div class="expense-empty">
-                                            <i class="fa-solid fa-chart-pie"></i>
-                                            No spending data yet.
-                                        </div>
-                                    {% endif %}
-
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-
-                    <!-- RECENT EXPENSES -->
-
-                    <div class="col-5">
-
-                        <div class="card dashboard-panel">
-
-                            <div class="section-header">
-
-                                <div>
-
-                                    <h2 class="section-title">
-                                        Recent expenses
-                                    </h2>
-
-                                    <p class="section-subtitle">
-                                        Your latest transactions
-                                    </p>
-
-                                </div>
-
-                                <a href="/expenses" class="section-action">
-                                    View all
-                                </a>
-
-                            </div>
-
-
-                            <div class="expense-list">
-
-                                {% if expenses %}
-                                    {% for expense in expenses[:4] %}
-                                    <div class="expense-item">
-                                        <div class="expense-icon {% if expense['category']|lower == 'food' %}icon-purple{% elif expense['category']|lower == 'transport' %}icon-mint{% elif expense['category']|lower in ['education', 'entertainment'] %}icon-pink{% else %}icon-peach{% endif %}">
-                                            <i class="fa-solid {% if expense['category']|lower == 'food' %}fa-utensils{% elif expense['category']|lower == 'transport' %}fa-train-subway{% elif expense['category']|lower == 'education' %}fa-book{% elif expense['category']|lower == 'entertainment' %}fa-film{% elif expense['category']|lower == 'shopping' %}fa-bag-shopping{% elif expense['category']|lower == 'hostel' %}fa-house{% elif expense['category']|lower == 'bills' %}fa-file-invoice-dollar{% else %}fa-receipt{% endif %}"></i>
-                                        </div>
-                                        <div class="expense-info">
-                                            <span class="expense-name">
-                                                {{ expense['description'] or 'Expense' }}
-                                            </span>
-                                            <span class="expense-category">
-                                                {{ expense['category']|capitalize }} · {{ expense['expense_date'].strftime('%d %b') }}
-                                            </span>
-                                        </div>
-                                        <strong class="expense-amount">
-                                            -₹{{ "{:,.0f}".format(expense['amount']) }}
-                                        </strong>
-                                    </div>
-                                    {% endfor %}
-                                {% else %}
-                                    <div class="expense-empty">
-                                        <i class="fa-solid fa-receipt"></i>
-                                        No expenses yet. Add your first expense to get started.
-                                    </div>
-                                {% endif %}
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-                <!-- =================================================
-                     SMARTSPLIT + SAVINGS GOALS
-                     ================================================= -->
-
-                <div class="dashboard-grid dashboard-section">
-
-
-                    <!-- ACTIVE SMARTSPLITS -->
-
-                    <div class="col-6">
-
-                        <div class="card dashboard-panel">
-
-                            <div class="section-header">
-
-                                <div>
-
-                                    <h2 class="section-title">
-                                        Active SmartSplits
-                                    </h2>
-
-                                    <p class="section-subtitle">
-                                        Keep track of shared expenses
-                                    </p>
-
-                                </div>
-
-                                <a href="#" class="section-action">
-                                    View all
-                                </a>
-
-                            </div>
-
-
-                            <div class="split-list">
-
-                                <div class="expense-empty">
-                                    <i class="fa-solid fa-users"></i>
-                                    No active SmartSplits yet.
-                                    <br>
-                                    Create a split to see shared expenses here.
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-
-                    <!-- SAVINGS GOALS -->
-
-                    <div class="col-6">
-
-                        <div class="card dashboard-panel">
-
-                            <div class="section-header">
-
-                                <div>
-
-                                    <h2 class="section-title">
-                                        Savings goals
-                                    </h2>
-
-                                    <p class="section-subtitle">
-                                        Small steps add up
-                                    </p>
-
-                                </div>
-
-                                <a href="/goals" class="section-action">
-                                    View goals
-                                </a>
-
-                            </div>
-
-
-                            <div class="goal-list">
-
-                                {% if goals %}
-                                    {% for goal in goals[:3] %}
-                                        {% set target = goal['target_amount']|float %}
-                                        {% set current = goal['current_amount']|float %}
-                                        {% set progress = ((current / target) * 100) if target > 0 else 0 %}
-                                        {% if progress > 100 %}{% set progress = 100 %}{% endif %}
-                                        {% set remaining = target - current if target > current else 0 %}
-
-                                        <div class="goal-item">
-                                            <div class="goal-top">
-                                                <div class="goal-title">
-                                                    <div class="goal-icon {% if loop.index % 2 == 0 %}icon-mint{% else %}icon-purple{% endif %}">
-                                                        <i class="fa-solid {% if 'laptop' in goal['goal_name']|lower %}fa-laptop{% elif 'trip' in goal['goal_name']|lower or 'travel' in goal['goal_name']|lower %}fa-plane-departure{% else %}fa-bullseye{% endif %}"></i>
-                                                    </div>
-                                                    <div>
-                                                        <span class="goal-name">{{ goal['goal_name'] }}</span>
-                                                        <span class="goal-target">₹{{ "{:,.0f}".format(target) }} goal</span>
-                                                    </div>
-                                                </div>
-                                                <strong>{{ "{:.0f}".format(progress) }}%</strong>
-                                            </div>
-
-                                            <div class="progress-bar">
-                                                <div class="progress-fill {% if loop.index % 2 == 0 %}progress-mint{% else %}progress-purple{% endif %}" data-progress="{{ progress }}"></div>
-                                            </div>
-
-                                            <div class="goal-footer">
-                                                <span>₹{{ "{:,.0f}".format(current) }} saved</span>
-                                                <span>₹{{ "{:,.0f}".format(remaining) }} to go</span>
-                                            </div>
-                                        </div>
-                                    {% endfor %}
-                                {% else %}
-                                    <div class="expense-empty">
-                                        <i class="fa-solid fa-bullseye"></i>
-                                        No savings goals yet.
-                                        <br>
-                                        Create a goal to start tracking your progress.
-                                    </div>
-                                {% endif %}
-
-                            </div>
-
-                        </div>
+                        </button>
 
                     </div>
 
@@ -805,66 +526,361 @@
 
             </section>
 
-        </main>
+
+            <!-- =================================================
+                     SPENDING OVERVIEW + RECENT EXPENSES
+                     ================================================= -->
+
+            <div class="dashboard-grid dashboard-section">
 
 
-        <!-- =================================================
+                <!-- SPENDING OVERVIEW -->
+
+                <div class="col-7">
+
+                    <div class="card dashboard-panel">
+
+                        <div class="section-header">
+
+                            <div>
+
+                                <h2 class="section-title">
+                                    Spending overview
+                                </h2>
+
+                                <p class="section-subtitle">
+                                    Your spending across this month
+                                </p>
+
+                            </div>
+
+
+                            <button class="btn btn-secondary btn-small">
+
+                                This month
+
+                                <i class="fa-solid fa-chevron-down"></i>
+
+                            </button>
+
+                        </div>
+
+
+                        <!-- CHART -->
+
+                        <div class="spending-chart">
+
+                            <div class="chart-container">
+                                <canvas id="spendingChart"></canvas>
+                            </div>
+
+
+                            <!-- SPENDING CATEGORIES -->
+
+                            <div class="spending-categories">
+
+                                {% if expense_summary.category_totals %}
+                                {% for category, amount in expense_summary.category_totals.items() %}
+                                <div class="category-item">
+                                    <div class="category-info">
+                                        <span
+                                            class="category-dot {% if category|lower == 'food' or category|lower == 'education' or category|lower == 'hostel' %}dot-purple{% elif category|lower == 'transport' or category|lower == 'bills' %}dot-mint{% elif category|lower == 'entertainment' or category|lower == 'shopping' %}dot-pink{% else %}dot-peach{% endif %}"></span>
+                                        <span>{{ category|capitalize }}</span>
+                                    </div>
+                                    <strong>₹{{ "{:,.0f}".format(amount) }}</strong>
+                                </div>
+                                {% endfor %}
+                                {% else %}
+                                <div class="expense-empty">
+                                    <i class="fa-solid fa-chart-pie"></i>
+                                    No spending data yet.
+                                </div>
+                                {% endif %}
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- RECENT EXPENSES -->
+
+                <div class="col-5">
+
+                    <div class="card dashboard-panel">
+
+                        <div class="section-header">
+
+                            <div>
+
+                                <h2 class="section-title">
+                                    Recent expenses
+                                </h2>
+
+                                <p class="section-subtitle">
+                                    Your latest transactions
+                                </p>
+
+                            </div>
+
+                            <a href="/expenses" class="section-action">
+                                View all
+                            </a>
+
+                        </div>
+
+
+                        <div class="expense-list">
+
+                            {% if expenses %}
+                            {% for expense in expenses[:4] %}
+                            <div class="expense-item">
+                                <div
+                                    class="expense-icon {% if expense['category']|lower == 'food' %}icon-purple{% elif expense['category']|lower == 'transport' %}icon-mint{% elif expense['category']|lower in ['education', 'entertainment'] %}icon-pink{% else %}icon-peach{% endif %}">
+                                    <i
+                                        class="fa-solid {% if expense['category']|lower == 'food' %}fa-utensils{% elif expense['category']|lower == 'transport' %}fa-train-subway{% elif expense['category']|lower == 'education' %}fa-book{% elif expense['category']|lower == 'entertainment' %}fa-film{% elif expense['category']|lower == 'shopping' %}fa-bag-shopping{% elif expense['category']|lower == 'hostel' %}fa-house{% elif expense['category']|lower == 'bills' %}fa-file-invoice-dollar{% else %}fa-receipt{% endif %}"></i>
+                                </div>
+                                <div class="expense-info">
+                                    <span class="expense-name">
+                                        {{ expense['description'] or 'Expense' }}
+                                    </span>
+                                    <span class="expense-category">
+                                        {{ expense['category']|capitalize }} · {{
+                                        expense['expense_date'].strftime('%d %b') }}
+                                    </span>
+                                </div>
+                                <strong class="expense-amount">
+                                    -₹{{ "{:,.0f}".format(expense['amount']) }}
+                                </strong>
+                            </div>
+                            {% endfor %}
+                            {% else %}
+                            <div class="expense-empty">
+                                <i class="fa-solid fa-receipt"></i>
+                                No expenses yet. Add your first expense to get started.
+                            </div>
+                            {% endif %}
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                     SMARTSPLIT + SAVINGS GOALS
+                     ================================================= -->
+
+            <div class="dashboard-grid dashboard-section">
+
+
+                <!-- ACTIVE SMARTSPLITS -->
+
+                <div class="col-6">
+
+                    <div class="card dashboard-panel">
+
+                        <div class="section-header">
+
+                            <div>
+
+                                <h2 class="section-title">
+                                    Active SmartSplits
+                                </h2>
+
+                                <p class="section-subtitle">
+                                    Keep track of shared expenses
+                                </p>
+
+                            </div>
+
+                            <a href="/smartsplit" class="section-action">
+                                View all
+                            </a>
+
+                        </div>
+
+
+                        <div class="split-list">
+
+                            {% if user_groups %}
+                                {% for group in user_groups[:3] %}
+                                <a href="/smartsplit" class="expense-item" style="text-decoration:none;">
+                                    <div class="expense-icon icon-purple">
+                                        <i class="fa-solid fa-users"></i>
+                                    </div>
+                                    <div class="expense-info">
+                                        <span class="expense-name">{{ group["name"] }}</span>
+                                        <span class="expense-category">Shared expense group</span>
+                                    </div>
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </a>
+                                {% endfor %}
+                            {% else %}
+                                <div class="expense-empty">
+                                    <i class="fa-solid fa-users"></i>
+                                    No active SmartSplits yet.
+                                    <br>
+                                    Create a split to see it here.
+                                </div>
+                            {% endif %}
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- SAVINGS GOALS -->
+
+                <div class="col-6">
+
+                    <div class="card dashboard-panel">
+
+                        <div class="section-header">
+
+                            <div>
+
+                                <h2 class="section-title">
+                                    Savings goals
+                                </h2>
+
+                                <p class="section-subtitle">
+                                    Small steps add up
+                                </p>
+
+                            </div>
+
+                            <a href="/goals" class="section-action">
+                                View goals
+                            </a>
+
+                        </div>
+
+
+                        <div class="goal-list">
+
+                            {% if goals %}
+                            {% for goal in goals[:3] %}
+                            {% set target = goal['target_amount']|float %}
+                            {% set current = goal['current_amount']|float %}
+                            {% set progress = ((current / target) * 100) if target > 0 else 0 %}
+                            {% if progress > 100 %}{% set progress = 100 %}{% endif %}
+                            {% set remaining = target - current if target > current else 0 %}
+
+                            <div class="goal-item">
+                                <div class="goal-top">
+                                    <div class="goal-title">
+                                        <div
+                                            class="goal-icon {% if loop.index % 2 == 0 %}icon-mint{% else %}icon-purple{% endif %}">
+                                            <i
+                                                class="fa-solid {% if 'laptop' in goal['goal_name']|lower %}fa-laptop{% elif 'trip' in goal['goal_name']|lower or 'travel' in goal['goal_name']|lower %}fa-plane-departure{% else %}fa-bullseye{% endif %}"></i>
+                                        </div>
+                                        <div>
+                                            <span class="goal-name">{{ goal['goal_name'] }}</span>
+                                            <span class="goal-target">₹{{ "{:,.0f}".format(target) }} goal</span>
+                                        </div>
+                                    </div>
+                                    <strong>{{ "{:.0f}".format(progress) }}%</strong>
+                                </div>
+
+                                <div class="progress-bar">
+                                    <div class="progress-fill {% if loop.index % 2 == 0 %}progress-mint{% else %}progress-purple{% endif %}"
+                                        data-progress="{{ progress }}"></div>
+                                </div>
+
+                                <div class="goal-footer">
+                                    <span>₹{{ "{:,.0f}".format(current) }} saved</span>
+                                    <span>₹{{ "{:,.0f}".format(remaining) }} to go</span>
+                                </div>
+                            </div>
+                            {% endfor %}
+                            {% else %}
+                            <div class="expense-empty">
+                                <i class="fa-solid fa-bullseye"></i>
+                                No savings goals yet.
+                                <br>
+                                Create a goal to start tracking your progress.
+                            </div>
+                            {% endif %}
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- =================================================
              MOBILE BOTTOM NAVIGATION
              ================================================= -->
 
-        <nav class="mobile-nav">
+    <nav class="mobile-nav">
 
-            <a href="/dashboard" class="mobile-nav-link active">
+        <a href="/dashboard" class="mobile-nav-link active">
 
-                <i class="fa-solid fa-house"></i>
+            <i class="fa-solid fa-house"></i>
 
-                <span>
-                    Home
-                </span>
+            <span>
+                Home
+            </span>
 
-            </a>
-
-
-            <a href="#" class="mobile-nav-link">
-
-                <i class="fa-solid fa-receipt"></i>
-
-                <span>
-                    Expenses
-                </span>
-
-            </a>
+        </a>
 
 
-            <button class="mobile-add">
+        <a href="/expenses" class="mobile-nav-link">
 
-                <i class="fa-solid fa-plus"></i>
+            <i class="fa-solid fa-receipt"></i>
 
-            </button>
+            <span>
+                Expenses
+            </span>
 
-
-            <a href="/goals" class="mobile-nav-link">
-
-                <i class="fa-solid fa-bullseye"></i>
-
-                <span>
-                    Goals
-                </span>
-
-            </a>
+        </a>
 
 
-            <a href="#" class="mobile-nav-link">
+        <button class="mobile-add">
 
-                <i class="fa-solid fa-bars"></i>
+            <i class="fa-solid fa-plus"></i>
 
-                <span>
-                    More
-                </span>
+        </button>
 
-            </a>
 
-        </nav>
+        <a href="/goals" class="mobile-nav-link">
+
+            <i class="fa-solid fa-bullseye"></i>
+
+            <span>
+                Goals
+            </span>
+
+        </a>
+
+
+        <a href="#" class="mobile-nav-link">
+
+            <i class="fa-solid fa-bars"></i>
+
+            <span>
+                More
+            </span>
+
+        </a>
+
+    </nav>
 
     </div>
 
@@ -874,6 +890,9 @@
          ===================================================== -->
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        window.campusPayDashboard = { dashboard_datatojson };
+    </script>
     <script>
         document.querySelectorAll("[data-progress]").forEach(function (bar) {
             bar.style.width = bar.dataset.progress + "%";
