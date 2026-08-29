@@ -222,6 +222,48 @@ def dashboard():
     )
 
 
+@app.route("/expenses", methods=["GET"])
+def expenses_page():
+    if "user_id" not in session:
+        return redirect(url_for("login"))
+    return render_template("expenses.html")
+
+
+@app.route("/goals", methods=["GET"])
+def goals_page():
+    if "user_id" not in session:
+        return redirect(url_for("login"))
+    return render_template("goals.html")
+
+
+@app.route("/smartsplit")
+def smartsplit_page():
+    if "user_id" not in session:
+        return redirect(url_for("login"))
+    return render_template("smartsplit.html")
+
+
+@app.route("/ai-finance")
+def ai_finance_page():
+    if "user_id" not in session:
+        return redirect(url_for("login"))
+    return render_template("ai_finance.html")
+
+
+@app.route("/discounts")
+def discounts_page():
+    if "user_id" not in session:
+        return redirect(url_for("login"))
+    return render_template("discounts.html")
+
+
+@app.route("/analytics")
+def analytics_page():
+    if "user_id" not in session:
+        return redirect(url_for("login"))
+    return render_template("analytics.html")
+
+
 # =========================================================
 # LOGOUT
 # =========================================================
