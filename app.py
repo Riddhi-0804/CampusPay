@@ -216,7 +216,7 @@ def dashboard():
         return redirect(url_for("login"))
 
     return render_template(
-        "dashboard.html",
+        "/dashboard",
         user_name=session.get("user_name"),
         user_email=session.get("user_email")
     )
@@ -315,13 +315,15 @@ def health_check():
 # EXPENSES
 # =========================================================
 
-@app.route("/expenses", methods=["POST"])
+@app.route("/api/expenses", methods=["POST"])
 def create_expense():
+
+    if "user_id" not in session:
+        return {"error": "Authentication required"}, 401
 
     data = request.get_json()
 
     required_fields = [
-        "user_id",
         "amount",
         "category",
         "description",
@@ -332,7 +334,7 @@ def create_expense():
         return {"error": "All expense fields are required"}, 400
 
     expense_id = add_expense(
-        data["user_id"],
+        session["user_id"],
         data["amount"],
         data["category"],
         data["description"],
@@ -345,8 +347,13 @@ def create_expense():
     }, 201
 
 
-@app.route("/expenses/<int:user_id>", methods=["GET"])
-def list_expenses(user_id):
+@app.route("/api/expenses", methods=["GET"])
+def list_expenses():
+
+    if "user_id" not in session:
+        return {"error": "Authentication required"}, 401
+
+    user_id = session["user_id"]
 
     expenses = get_expenses(user_id)
     summary = calculate_expenses(expenses)
@@ -357,13 +364,15 @@ def list_expenses(user_id):
     }, 200
 
 
-@app.route("/expenses/<int:expense_id>", methods=["PUT"])
+@app.route("/api/expenses/<int:expense_id>", methods=["PUT"])
 def edit_expense(expense_id):
+
+    if "user_id" not in session:
+        return {"error": "Authentication required"}, 401
 
     data = request.get_json()
 
     required_fields = [
-        "user_id",
         "amount",
         "category",
         "description",
@@ -375,7 +384,7 @@ def edit_expense(expense_id):
 
     updated = update_expense(
         expense_id,
-        data["user_id"],
+        session["user_id"],
         data["amount"],
         data["category"],
         data["description"],
@@ -390,17 +399,15 @@ def edit_expense(expense_id):
     }, 200
 
 
-@app.route("/expenses/<int:expense_id>", methods=["DELETE"])
+@app.route("/api/expenses/<int:expense_id>", methods=["DELETE"])
 def remove_expense(expense_id):
 
-    data = request.get_json()
-
-    if not data or "user_id" not in data:
-        return {"error": "user_id is required"}, 400
+    if "user_id" not in session:
+        return {"error": "Authentication required"}, 401
 
     deleted = delete_expense(
         expense_id,
-        data["user_id"]
+        session["user_id"]
     )
 
     if not deleted:
@@ -409,6 +416,7 @@ def remove_expense(expense_id):
     return {
         "message": "Expense deleted successfully"
     }, 200
+
 
 
 # =========================================================
