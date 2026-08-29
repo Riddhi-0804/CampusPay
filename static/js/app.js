@@ -573,11 +573,9 @@ function closeExpenseModalFunc() {
 
 }
 
-
 async function handleExpenseSubmit(event) {
 
     event.preventDefault();
-
 
     const description =
         expenseNameInput.value.trim();
@@ -591,7 +589,6 @@ async function handleExpenseSubmit(event) {
     const expense_date =
         expenseDateInput.value;
 
-
     if (
         !description ||
         !amount ||
@@ -603,7 +600,6 @@ async function handleExpenseSubmit(event) {
         return;
 
     }
-
 
     const expenseData = {
 
@@ -617,13 +613,13 @@ async function handleExpenseSubmit(event) {
 
     };
 
-
     try {
 
         let response;
 
+        const wasEditing = Boolean(editingExpenseId);
 
-        if (editingExpenseId) {
+        if (wasEditing) {
 
             response = await fetch(
                 `/api/expenses/${editingExpenseId}`,
@@ -655,9 +651,8 @@ async function handleExpenseSubmit(event) {
 
         }
 
-
-        const data = await response.json();
-
+        const data =
+            await response.json();
 
         if (!response.ok) {
 
@@ -667,13 +662,11 @@ async function handleExpenseSubmit(event) {
 
         }
 
-
         closeExpenseModalFunc();
 
         await loadExpenses();
 
-
-        if (editingExpenseId) {
+        if (wasEditing) {
 
             showToast(
                 "Expense updated successfully."
@@ -686,7 +679,6 @@ async function handleExpenseSubmit(event) {
             );
 
         }
-
 
     } catch (error) {
 
@@ -711,10 +703,8 @@ async function deleteExpense(id) {
                 }
             );
 
-
         const data =
             await response.json();
-
 
         if (!response.ok) {
 
@@ -724,16 +714,19 @@ async function deleteExpense(id) {
 
         }
 
-
         await loadExpenses();
 
-        showToast("Expense deleted.");
+        showToast(
+            "Expense deleted."
+        );
 
     } catch (error) {
 
         console.error(error);
 
-        showToast(error.message);
+        showToast(
+            error.message
+        );
 
     }
 
@@ -744,10 +737,8 @@ function showToast(message) {
 
     if (!expenseToast) return;
 
-
     const text =
         expenseToast.querySelector("span");
-
 
     if (text) {
 
@@ -756,9 +747,7 @@ function showToast(message) {
 
     }
 
-
     expenseToast.classList.add("show");
-
 
     setTimeout(function () {
 
@@ -882,33 +871,26 @@ if (expenseList) {
                     ".expense-action"
                 );
 
-
             if (!button) return;
-
 
             const item =
                 button.closest(
                     ".expense-item"
                 );
 
-
             if (!item) return;
-
 
             const id =
                 item.dataset.id;
 
-
             const action =
                 button.dataset.action;
-
 
             if (action === "edit") {
 
                 openExpenseModalForEdit(id);
 
             }
-
 
             if (action === "delete") {
 
@@ -931,3 +913,4 @@ if (expenseList) {
     loadExpenses();
 
 }
+
