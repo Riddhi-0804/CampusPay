@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, jsonify, session, redirect, url_for
-
+from datetime import date
 from config import Config
 
 from modules.auth import register_user, login_user
@@ -207,20 +207,42 @@ def login():
 # =========================================================
 # DASHBOARD
 # =========================================================
-
 @app.route("/dashboard")
 def dashboard():
 
-    # User must be logged in
     if "user_id" not in session:
         return redirect(url_for("login"))
+
+    user_id = session["user_id"]
+
+    expenses = get_expenses(user_id)
+    goals = get_goals(user_id)
+
+    expense_summary = calculate_expenses(expenses)
+
+    today = date.today()
+
+    monthly_expenses = [
+        expense
+        for expense in expenses
+        if expense["expense_date"].month == today.month
+        and expense["expense_date"].year == today.year
+    ]
+
+    monthly_spending = sum(
+        float(expense["amount"])
+        for expense in monthly_expenses
+    )
 
     return render_template(
         "dashboard.html",
         user_name=session.get("user_name"),
-        user_email=session.get("user_email")
+        user_email=session.get("user_email"),
+        expenses=expenses,
+        goals=goals,
+        expense_summary=expense_summary,
+        monthly_spending=monthly_spending
     )
-
 
 @app.route("/expenses", methods=["GET"])
 def expenses_page():
