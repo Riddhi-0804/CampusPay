@@ -67,12 +67,11 @@ if (spendingChart && typeof Chart !== "undefined") {
 
 // =========================================================
 // EXPENSE MANAGEMENT
-// Add / Edit / Delete / Search / Filter / localStorage
+// Add / Edit / Delete / Search / Filter / API
 // =========================================================
 
-const EXPENSE_STORAGE_KEY = "campusPayExpenses";
-
 let editingExpenseId = null;
+let expensesData = [];
 
 const expenseModal = document.getElementById("expenseModal");
 const expenseForm = document.getElementById("expenseForm");
@@ -102,76 +101,41 @@ const expenseResultText = document.getElementById("expenseResultText");
 const expenseToast = document.getElementById("expenseToast");
 
 
-function getExpenses() {
+async function loadExpenses() {
+
     try {
-        return JSON.parse(localStorage.getItem(EXPENSE_STORAGE_KEY)) || [];
-    } catch (error) {
-        return [];
-    }
-}
 
+        const response = await fetch("/api/expenses");
 
-function saveExpenses(expenses) {
-    localStorage.setItem(EXPENSE_STORAGE_KEY, JSON.stringify(expenses));
-}
+        const data = await response.json();
 
-
-function createDemoExpenses() {
-    return [
-        {
-            id: crypto.randomUUID(),
-            name: "College Canteen",
-            amount: 180,
-            category: "food",
-            date: getDateOffset(0)
-        },
-        {
-            id: crypto.randomUUID(),
-            name: "Metro Recharge",
-            amount: 500,
-            category: "transport",
-            date: getDateOffset(1)
-        },
-        {
-            id: crypto.randomUUID(),
-            name: "Stationery",
-            amount: 320,
-            category: "education",
-            date: getDateOffset(3)
-        },
-        {
-            id: crypto.randomUUID(),
-            name: "Campus Café",
-            amount: 120,
-            category: "food",
-            date: getDateOffset(4)
+        if (!response.ok) {
+            throw new Error(data.error || "Failed to load expenses");
         }
-    ];
-}
 
+        expensesData = data.expenses || [];
 
-function getDateOffset(daysAgo) {
-    const date = new Date();
-    date.setDate(date.getDate() - daysAgo);
-    return date.toISOString().split("T")[0];
-}
+        renderExpenses();
 
+    } catch (error) {
 
-function initialiseExpenses() {
-    const expenses = getExpenses();
+        console.error(error);
 
-    if (expenses.length === 0) {
-        saveExpenses(createDemoExpenses());
+        showToast("Failed to load expenses.");
+
     }
 }
 
 
 function formatMoney(amount) {
+
     return "₹" + Number(amount).toLocaleString("en-IN");
+
 }
 
 
 function formatDate(dateString) {
+
     const date = new Date(dateString + "T00:00:00");
 
     return date.toLocaleDateString("en-IN", {
@@ -179,60 +143,71 @@ function formatDate(dateString) {
         month: "short",
         year: "numeric"
     });
+
 }
 
 
 function categoryLabel(category) {
+
     return category.charAt(0).toUpperCase() + category.slice(1);
+
 }
 
 
 function getCategoryVisual(category) {
 
     const visuals = {
+
         food: {
             icon: "fa-utensils",
             className: "icon-purple"
         },
+
         transport: {
             icon: "fa-train-subway",
             className: "icon-mint"
         },
+
         education: {
             icon: "fa-book",
             className: "icon-pink"
         },
+
         entertainment: {
             icon: "fa-film",
             className: "icon-peach"
         },
+
         shopping: {
             icon: "fa-bag-shopping",
             className: "icon-peach"
         },
+
         hostel: {
             icon: "fa-house",
             className: "icon-purple"
         },
+
         bills: {
             icon: "fa-file-invoice-dollar",
             className: "icon-mint"
         },
+
         other: {
             icon: "fa-receipt",
             className: "icon-purple"
         }
+
     };
 
     return visuals[category] || visuals.other;
+
 }
 
 
 function renderExpenses() {
 
     if (!expenseList) return;
-
-    const allExpenses = getExpenses();
 
     const searchText =
         expenseSearch?.value.toLowerCase().trim() || "";
@@ -244,21 +219,30 @@ function renderExpenses() {
         dateFilter?.value || "all";
 
 
-    const filteredExpenses = allExpenses.filter(function (expense) {
+    const filteredExpenses = expensesData.filter(function (expense) {
+
+        const description =
+            expense.description || "";
 
         const matchesSearch =
-            expense.name.toLowerCase().includes(searchText);
+            description.toLowerCase().includes(searchText);
 
         const matchesCategory =
             selectedCategory === "all" ||
             expense.category === selectedCategory;
 
         const matchesDate =
-            matchesDateFilter(expense.date, selectedDate);
+            matchesDateFilter(
+                expense.expense_date,
+                selectedDate
+            );
 
-        return matchesSearch &&
-               matchesCategory &&
-               matchesDate;
+        return (
+            matchesSearch &&
+            matchesCategory &&
+            matchesDate
+        );
+
     });
 
 
@@ -279,17 +263,26 @@ function renderExpenses() {
     } else {
 
         filteredExpenses.forEach(function (expense) {
-            expenseList.appendChild(createExpenseElement(expense));
+
+            expenseList.appendChild(
+                createExpenseElement(expense)
+            );
+
         });
+
     }
 
 
     if (expenseResultText) {
+
         expenseResultText.textContent =
             `${filteredExpenses.length} expense${filteredExpenses.length === 1 ? "" : "s"} shown`;
+
     }
 
-    updateStats(allExpenses);
+
+    updateStats(expensesData);
+
 }
 
 
@@ -336,6 +329,7 @@ function matchesDateFilter(dateString, filter) {
 
 
     return true;
+
 }
 
 
@@ -346,6 +340,7 @@ function createExpenseElement(expense) {
     item.className = "expense-item";
 
     item.dataset.id = expense.id;
+
     item.dataset.category = expense.category;
 
 
@@ -354,6 +349,7 @@ function createExpenseElement(expense) {
 
 
     item.innerHTML = `
+
         <div class="expense-icon ${visual.className}">
             <i class="fa-solid ${visual.icon}"></i>
         </div>
@@ -361,11 +357,13 @@ function createExpenseElement(expense) {
         <div class="expense-info">
 
             <span class="expense-name">
-                ${escapeHTML(expense.name)}
+                ${escapeHTML(expense.description || "")}
             </span>
 
             <span class="expense-category">
-                ${categoryLabel(expense.category)} · ${formatDate(expense.date)}
+                ${categoryLabel(expense.category)}
+                ·
+                ${formatDate(expense.expense_date)}
             </span>
 
         </div>
@@ -393,10 +391,12 @@ function createExpenseElement(expense) {
             </button>
 
         </div>
+
     `;
 
 
     return item;
+
 }
 
 
@@ -407,6 +407,7 @@ function escapeHTML(value) {
     div.textContent = value;
 
     return div.innerHTML;
+
 }
 
 
@@ -422,12 +423,15 @@ function updateStats(expenses) {
 
     const today = new Date();
 
+
     const monthTotal =
         expenses
             .filter(function (expense) {
 
                 const date =
-                    new Date(expense.date + "T00:00:00");
+                    new Date(
+                        expense.expense_date + "T00:00:00"
+                    );
 
                 return (
                     date.getMonth() === today.getMonth() &&
@@ -443,19 +447,28 @@ function updateStats(expenses) {
 
 
     if (totalExpenseStat) {
+
         totalExpenseStat.textContent =
             formatMoney(total);
+
     }
+
 
     if (monthExpenseStat) {
+
         monthExpenseStat.textContent =
             formatMoney(monthTotal);
+
     }
 
+
     if (transactionStat) {
+
         transactionStat.textContent =
             expenses.length;
+
     }
+
 }
 
 
@@ -465,58 +478,88 @@ function openExpenseModalForAdd() {
 
     expenseForm?.reset();
 
+
     if (expenseDateInput) {
+
         expenseDateInput.value =
             new Date().toISOString().split("T")[0];
+
     }
+
 
     if (modalTitle) {
-        modalTitle.textContent = "Add Expense";
+
+        modalTitle.textContent =
+            "Add Expense";
+
     }
+
 
     if (modalSubtitle) {
+
         modalSubtitle.textContent =
             "Record a new expense";
+
     }
 
+
     if (submitExpense) {
+
         submitExpense.innerHTML =
             `<i class="fa-solid fa-plus"></i> Add Expense`;
+
     }
+
 
     expenseModal?.classList.add("active");
 
     expenseNameInput?.focus();
+
 }
 
 
 function openExpenseModalForEdit(id) {
 
     const expense =
-        getExpenses().find(
-            item => item.id === id
+        expensesData.find(
+            item => Number(item.id) === Number(id)
         );
+
 
     if (!expense) return;
 
-    editingExpenseId = id;
 
-    expenseNameInput.value = expense.name;
-    expenseAmountInput.value = expense.amount;
-    expenseCategoryInput.value = expense.category;
-    expenseDateInput.value = expense.date;
+    editingExpenseId = expense.id;
 
-    modalTitle.textContent = "Edit Expense";
+
+    expenseNameInput.value =
+        expense.description || "";
+
+    expenseAmountInput.value =
+        expense.amount;
+
+    expenseCategoryInput.value =
+        expense.category;
+
+    expenseDateInput.value =
+        expense.expense_date;
+
+
+    modalTitle.textContent =
+        "Edit Expense";
 
     modalSubtitle.textContent =
         "Update your expense details";
 
+
     submitExpense.innerHTML =
         `<i class="fa-solid fa-check"></i> Save Changes`;
+
 
     expenseModal.classList.add("active");
 
     expenseNameInput.focus();
+
 }
 
 
@@ -527,15 +570,16 @@ function closeExpenseModalFunc() {
     editingExpenseId = null;
 
     expenseForm?.reset();
+
 }
 
 
-function handleExpenseSubmit(event) {
+async function handleExpenseSubmit(event) {
 
     event.preventDefault();
 
 
-    const name =
+    const description =
         expenseNameInput.value.trim();
 
     const amount =
@@ -544,84 +588,155 @@ function handleExpenseSubmit(event) {
     const category =
         expenseCategoryInput.value;
 
-    const date =
+    const expense_date =
         expenseDateInput.value;
 
 
     if (
-        !name ||
+        !description ||
         !amount ||
         amount <= 0 ||
         !category ||
-        !date
+        !expense_date
     ) {
+
         return;
+
     }
 
 
-    const expenses = getExpenses();
+    const expenseData = {
+
+        amount: amount,
+
+        category: category,
+
+        description: description,
+
+        expense_date: expense_date
+
+    };
 
 
-    if (editingExpenseId) {
+    try {
 
-        const index =
-            expenses.findIndex(
-                expense =>
-                    expense.id === editingExpenseId
+        let response;
+
+
+        if (editingExpenseId) {
+
+            response = await fetch(
+                `/api/expenses/${editingExpenseId}`,
+                {
+                    method: "PUT",
+
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+
+                    body: JSON.stringify(expenseData)
+                }
             );
 
-        if (index !== -1) {
+        } else {
 
-            expenses[index] = {
-                ...expenses[index],
-                name,
-                amount,
-                category,
-                date
-            };
+            response = await fetch(
+                "/api/expenses",
+                {
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+
+                    body: JSON.stringify(expenseData)
+                }
+            );
 
         }
 
-        saveExpenses(expenses);
 
-        showToast("Expense updated successfully.");
+        const data = await response.json();
 
-    } else {
 
-        expenses.unshift({
-            id: crypto.randomUUID(),
-            name,
-            amount,
-            category,
-            date
-        });
+        if (!response.ok) {
 
-        saveExpenses(expenses);
+            throw new Error(
+                data.error || "Expense request failed"
+            );
 
-        showToast("Expense added successfully.");
+        }
+
+
+        closeExpenseModalFunc();
+
+        await loadExpenses();
+
+
+        if (editingExpenseId) {
+
+            showToast(
+                "Expense updated successfully."
+            );
+
+        } else {
+
+            showToast(
+                "Expense added successfully."
+            );
+
+        }
+
+
+    } catch (error) {
+
+        console.error(error);
+
+        showToast(error.message);
+
     }
 
-
-    closeExpenseModalFunc();
-
-    renderExpenses();
 }
 
 
-function deleteExpense(id) {
+async function deleteExpense(id) {
 
-    const expenses = getExpenses();
+    try {
 
-    const updatedExpenses =
-        expenses.filter(
-            expense => expense.id !== id
-        );
+        const response =
+            await fetch(
+                `/api/expenses/${id}`,
+                {
+                    method: "DELETE"
+                }
+            );
 
-    saveExpenses(updatedExpenses);
 
-    renderExpenses();
+        const data =
+            await response.json();
 
-    showToast("Expense deleted.");
+
+        if (!response.ok) {
+
+            throw new Error(
+                data.error || "Failed to delete expense"
+            );
+
+        }
+
+
+        await loadExpenses();
+
+        showToast("Expense deleted.");
+
+    } catch (error) {
+
+        console.error(error);
+
+        showToast(error.message);
+
+    }
+
 }
 
 
@@ -629,18 +744,28 @@ function showToast(message) {
 
     if (!expenseToast) return;
 
+
     const text =
         expenseToast.querySelector("span");
 
+
     if (text) {
-        text.textContent = message;
+
+        text.textContent =
+            message;
+
     }
+
 
     expenseToast.classList.add("show");
 
+
     setTimeout(function () {
+
         expenseToast.classList.remove("show");
+
     }, 2200);
+
 }
 
 
@@ -649,58 +774,72 @@ function showToast(message) {
 // =========================================================
 
 if (expenseSearch) {
+
     expenseSearch.addEventListener(
         "input",
         renderExpenses
     );
+
 }
 
 
 if (categoryFilter) {
+
     categoryFilter.addEventListener(
         "change",
         renderExpenses
     );
+
 }
 
 
 if (dateFilter) {
+
     dateFilter.addEventListener(
         "change",
         renderExpenses
     );
+
 }
 
 
 if (addExpenseBtn) {
+
     addExpenseBtn.addEventListener(
         "click",
         openExpenseModalForAdd
     );
+
 }
 
 
 if (mobileAddExpense) {
+
     mobileAddExpense.addEventListener(
         "click",
         openExpenseModalForAdd
     );
+
 }
 
 
 if (closeExpenseModal) {
+
     closeExpenseModal.addEventListener(
         "click",
         closeExpenseModalFunc
     );
+
 }
 
 
 if (cancelExpense) {
+
     cancelExpense.addEventListener(
         "click",
         closeExpenseModalFunc
     );
+
 }
 
 
@@ -711,19 +850,24 @@ if (expenseModal) {
         function (event) {
 
             if (event.target === expenseModal) {
+
                 closeExpenseModalFunc();
+
             }
 
         }
     );
+
 }
 
 
 if (expenseForm) {
+
     expenseForm.addEventListener(
         "submit",
         handleExpenseSubmit
     );
+
 }
 
 
@@ -738,30 +882,43 @@ if (expenseList) {
                     ".expense-action"
                 );
 
+
             if (!button) return;
 
+
             const item =
-                button.closest(".expense-item");
+                button.closest(
+                    ".expense-item"
+                );
+
 
             if (!item) return;
 
-            const id = item.dataset.id;
+
+            const id =
+                item.dataset.id;
+
 
             const action =
                 button.dataset.action;
 
 
             if (action === "edit") {
+
                 openExpenseModalForEdit(id);
+
             }
 
 
             if (action === "delete") {
+
                 deleteExpense(id);
+
             }
 
         }
     );
+
 }
 
 
@@ -770,6 +927,7 @@ if (expenseList) {
 // =========================================================
 
 if (expenseList) {
-    initialiseExpenses();
-    renderExpenses();
+
+    loadExpenses();
+
 }
