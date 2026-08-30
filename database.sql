@@ -207,6 +207,7 @@ CREATE TABLE `users` (
   `email` varchar(255) NOT NULL,
   `password_hash` varchar(255) NOT NULL,
   `college_name` varchar(255) NOT NULL,
+  `monthly_budget` decimal(10,2) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   UNIQUE KEY `email_UNIQUE` (`email`)

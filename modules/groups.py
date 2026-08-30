@@ -1,6 +1,5 @@
 from modules.database import get_db_connection, close_db_connection
 
-
 def create_group(name, created_by):
     connection = get_db_connection()
 
@@ -8,7 +7,8 @@ def create_group(name, created_by):
         with connection.cursor() as cursor:
             cursor.execute(
                 """
-                INSERT INTO groups (name, created_by)
+                INSERT INTO `groups`
+                (name, created_by)
                 VALUES (%s, %s)
                 """,
                 (name, created_by)
@@ -18,7 +18,8 @@ def create_group(name, created_by):
 
             cursor.execute(
                 """
-                INSERT INTO group_members (group_id, user_id)
+                INSERT INTO group_members
+                (group_id, user_id)
                 VALUES (%s, %s)
                 """,
                 (group_id, created_by)
@@ -44,19 +45,19 @@ def add_group_member(group_id, user_id):
                 """
                 SELECT id
                 FROM group_members
-                WHERE group_id = %s AND user_id = %s
+                WHERE group_id = %s
+                AND user_id = %s
                 """,
                 (group_id, user_id)
             )
 
-            existing_member = cursor.fetchone()
-
-            if existing_member:
+            if cursor.fetchone():
                 return False
 
             cursor.execute(
                 """
-                INSERT INTO group_members (group_id, user_id)
+                INSERT INTO group_members
+                (group_id, user_id)
                 VALUES (%s, %s)
                 """,
                 (group_id, user_id)
@@ -85,10 +86,11 @@ def get_group(group_id, user_id):
                     g.name,
                     g.created_by,
                     g.created_at
-                FROM groups g
+                FROM `groups` g
                 INNER JOIN group_members gm
                     ON g.id = gm.group_id
-                WHERE g.id = %s AND gm.user_id = %s
+                WHERE g.id = %s
+                AND gm.user_id = %s
                 """,
                 (group_id, user_id)
             )
@@ -114,7 +116,7 @@ def get_group_members(group_id):
                 INNER JOIN group_members gm
                     ON u.id = gm.user_id
                 WHERE gm.group_id = %s
-                ORDER BY u.full_name
+                ORDER BY u.full_name ASC
                 """,
                 (group_id,)
             )
@@ -137,11 +139,11 @@ def get_user_groups(user_id):
                     g.name,
                     g.created_by,
                     g.created_at
-                FROM groups g
+                FROM `groups` g
                 INNER JOIN group_members gm
                     ON g.id = gm.group_id
                 WHERE gm.user_id = %s
-                ORDER BY g.created_at DESC, g.id DESC
+                ORDER BY g.created_at DESC
                 """,
                 (user_id,)
             )
@@ -150,3 +152,4 @@ def get_user_groups(user_id):
 
     finally:
         close_db_connection(connection)
+
